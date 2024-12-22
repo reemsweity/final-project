@@ -61,6 +61,11 @@ Route::get('appointments', [AppointmentController::class, 'index']);
 
 
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/reviews/{review}/edit', [AdminReviewController::class, 'edits'])->name('reviews.edit');
+    Route::put('/reviews/{review}', [AdminReviewController::class, 'updates'])->name('reviews.update');
+    Route::delete('/reviews/{review}', [AdminReviewController::class, 'destroys'])->name('reviews.delete');
+});
 
 
 

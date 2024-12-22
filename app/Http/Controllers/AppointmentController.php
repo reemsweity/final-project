@@ -2,10 +2,9 @@
 namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\Doctor;
-use App\Models\DoctorAvailability;
+use App\Models\Specialization;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\AppointmentBooked;
+
 class AppointmentController extends Controller
 {
     public function showAvailableTimes($doctorId)
@@ -15,9 +14,9 @@ class AppointmentController extends Controller
         
         // Get the availability of the doctor
         $availability = $doctor->availability()->get();
-        
+        $specialties = Specialization::all();
         // Return the view with the availability
-        return view('appointments.book', compact('doctor', 'availability'));
+        return view('appointments.book', compact('doctor', 'availability','specialties'));
     }
 
     // Book an appointment

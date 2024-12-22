@@ -23,6 +23,8 @@
                 .className += t + "touch")
         }(window, document);
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link href="{{ asset('doc_on_call_logo_icon.png') }}"
         rel="shortcut icon"  />
     <link
@@ -323,34 +325,74 @@
         <h3>Reviews</h3>
         @if ($reviews->count() > 0)
             @foreach ($reviews as $review)
-                <div class="review">
-                    <div class="review-header">
-                        <!-- User Profile Image and Name with Date Below -->
-                        <div class="author-profile">
-                            <img src="{{ asset($review->user->profile_img ? $review->user->profile_img : 'default-profile.jpg') }}" alt="User Image" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%; ">
-                            <span class="author-name">{{ $review->user->name }}</span>
-                            <div class="author-details">
-                                <span class="review-date">{{ \Carbon\Carbon::parse($review->created_at)->format('M d, Y') }}</span>
+                <div class="review d-flex justify-content-between align-items-center" id="review-{{ $review->id }}">
+                    <!-- Left Section: Review Content -->
+                    <div class="review-content">
+                        <div class="review-header">
+                            <div class="author-profile">
+                                <img src="{{ asset($review->user->profile_img ? $review->user->profile_img : 'default-profile.jpg') }}" alt="User Image" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                                <span class="author-name">{{ $review->user->name }}</span>
+                                <div class="author-details">
+                                    <span class="review-date">{{ \Carbon\Carbon::parse($review->created_at)->format('M d, Y') }}</span>
+                                </div>
                             </div>
                         </div>
+                        <div class="review-rating">
+                            @for ($i = 0; $i < $review->rating; $i++)
+                                <span class="star">★</span>
+                            @endfor
+                        </div>
+                        <p class="review-text" id="review-text-{{ $review->id }}">{{ $review->comment }}</p>
                     </div>
     
-                    <div class="review-rating">
-                        <!-- Display Stars for Rating -->
-                        @for ($i = 0; $i < $review->rating; $i++)
-                            <span class="star">★</span>
-                        @endfor
-                    </div>
+                    <!-- Right Section: Edit and Delete Buttons -->
+                    @if (auth()->check() && $review->user_id == auth()->id())
+                        <div class="review-actions text-right">
+                            <button class="btn btn-sm btn-primary" onclick="editReview({{ $review->id }})">Edit</button>
+                            <form action="{{ route('reviews.delete', $review->id) }}" method="POST" style="display: inline;" id="delete-form-{{ $review->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="btn btn-sm btn-danger" onclick="deleteReview({{ $review->id }})">Delete</button>
+                            </form>
+                            
+                        </div>
+                    @endif
+                </div>
+    
+                <!-- Inline Edit Form -->
+                <div class="edit-review-form" id="edit-form-{{ $review->id }}" style="display: none; margin-top: 15px;">
+                    <form action="{{ route('reviews.update', $review->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-group">
+                            <label for="rating-{{ $review->id }}">Rating</label>
+                            <div class="star-rating">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <span class="star {{ $i <= $review->rating ? 'active' : '' }}" data-value="{{ $i }}" onclick="setRating({{ $review->id }}, {{ $i }})">&#9733;</span>
+                                @endfor
+                                <input type="hidden" name="rating" id="rating-{{ $review->id }}" value="{{ $review->rating }}">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="comment-{{ $review->id }}">Comment</label>
+                            <textarea name="comment" id="comment-{{ $review->id }}" rows="4" class="form-control" placeholder="Write your review here...">{{ $review->comment }}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-sm">Save</button>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="cancelEdit({{ $review->id }})">Cancel</button>
+                    </form>
                 </div>
             @endforeach
             <div class="pagination-wrap">
                 {{ $reviews->links('pagination::bootstrap-4') }}
             </div>
-           
         @else
             <p>No reviews available for this doctor.</p>
         @endif
     </div>
+    
+    
+    
     
     
     
@@ -479,6 +521,38 @@ document.querySelectorAll('.star').forEach(star => {
         });
     });
 });
+
+function editReview(reviewId) {
+    // Hide the review text and show the edit form
+    document.getElementById(`review-text-${reviewId}`).style.display = 'none';
+    document.getElementById(`edit-form-${reviewId}`).style.display = 'block';
+}
+
+function cancelEdit(reviewId) {
+    // Show the review text and hide the edit form
+    document.getElementById(`review-text-${reviewId}`).style.display = 'block';
+    document.getElementById(`edit-form-${reviewId}`).style.display = 'none';
+}
+function deleteReview(reviewId) {
+    // SweetAlert confirmation popup
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If user confirms, submit the hidden delete form
+            document.getElementById(`delete-form-${reviewId}`).submit();
+
+            
+        }
+    });
+}
+
 
 </script>
 </html>

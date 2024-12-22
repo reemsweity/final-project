@@ -95,6 +95,51 @@ public function storeDetails(Request $request, $doctorId)
     // Redirect back with success message
     return redirect()->route('user.doctorsdetailes', $doctorId)->with('success', 'Your review has been submitted and is awaiting approval.');
 }
+public function destroys($reviewId)
+{
+    $review = Review::findOrFail($reviewId);
 
+    // Ensure the review belongs to the logged-in user
+    if ($review->user_id != auth()->id()) {
+        return redirect()->route('user.doctorsdetailes', $review->doctor_id)->with('error', 'Unauthorized access.');
+    }
+
+    $doctorId = $review->doctor_id; // Store doctor ID for redirection
+    $review->delete();
+
+    return redirect()->route('user.doctorsdetailes', $doctorId)->with('success', 'Review deleted successfully.');
+}
+
+public function updates(Request $request, $id)
+{
+    $review = Review::findOrFail($id);
+
+    // Ensure the logged-in user owns the review
+    if ($review->user_id !== auth()->id()) {
+        return redirect()->back()->with('error', 'Unauthorized action.');
+    }
+
+    $request->validate([
+        'rating' => 'required|integer|min:1|max:5',
+        'comment' => 'nullable|string|max:1000',
+    ]);
+
+    $review->rating = $request->input('rating');
+    $review->comment = $request->input('comment');
+    $review->save();
+
+    return redirect()->back()->with('success', 'Review updated successfully.');
+}
+public function edits($reviewId)
+{
+    $review = Review::findOrFail($reviewId);
+
+    // Ensure the review belongs to the logged-in user
+    if ($review->user_id != auth()->id()) {
+        return redirect()->route('user.doctorsdetailes', $review->doctor_id)->with('error', 'Unauthorized access.');
+    }
+
+    return view('pages.reviews.edit', compact('review'));
+}
 
 }
