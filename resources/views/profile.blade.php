@@ -12,6 +12,11 @@
                 <h1 style="color: #193126; font-size: 26px; margin-top: 20px;">{{ auth()->user()->name }}</h1>
                 <p style="color: #585858; font-size: 14px;">Email: <strong>{{ auth()->user()->email }}</strong></p>
                 <p style="color: #585858; font-size: 14px;">Phone: <strong>{{ auth()->user()->phone }}</strong></p>
+                <div class="profile-actions" style="text-align: center; margin-top: 20px;">
+    <a href="{{route('profile.edit')}}" style="background-color: #43ba7f; color: #ffffff; padding: 12px 25px; font-size: 16px; border-radius: 5px; text-decoration: none; box-shadow: 0px 4px 8px rgba(67, 186, 127, 0.3); transition: all 0.3s ease;">
+        Edit Profile
+    </a>
+</div>
             </div>
 
             <!-- Profile Details Section -->
@@ -27,11 +32,7 @@
             </div>
         </div>
 <!-- Edit Button Section -->
-<div class="profile-actions" style="text-align: center; margin-top: 20px;">
-    <a href="{{route('profile.edit')}}" style="background-color: #43ba7f; color: #ffffff; padding: 12px 25px; font-size: 16px; border-radius: 5px; text-decoration: none; box-shadow: 0px 4px 8px rgba(67, 186, 127, 0.3); transition: all 0.3s ease;">
-        Edit Profile
-    </a>
-</div>
+
         <!-- Appointments Section -->
         <div class="appointments-section" style="margin-top: 40px; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);">
             <h2 style="color: #43ba7f; font-size: 22px; margin-bottom: 20px; border-bottom: 2px solid #238f5a; padding-bottom: 5px;">My Appointments</h2>

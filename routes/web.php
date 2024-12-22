@@ -202,7 +202,7 @@ Route::prefix('admin')->group(function () {
 
 
 
-Route::get('/contact', [UserContactController::class, 'showForm'])->name('contact.form');
+Route::get('/contact-us', [UserContactController::class, 'showForm'])->name('contact.form');
 Route::post('/contact', [UserContactController::class, 'store'])->name('contact.store');
 
 
@@ -213,22 +213,13 @@ Route::post('/contact', [UserContactController::class, 'store'])->name('contact.
 
 
 
-Route::get('/appointment', function () {
-    return view('pages/appointment');
-});
 
 
 
-Route::get('/contact-us', function () {
-    return view('pages/contact-us');
-});
-
-Route::get('/about', function () {
-    return view('pages/about-us');
-});
 
 
-// In routes/web.php
-Route::get('/doctor/{doctorId}/appointments', [AppointmentController::class, 'showAppointments'])
-    ->name('doctor.appointments')
-    ->middleware('auth:doctor');  // Ensure the route is only accessible to logged-in doctors
+
+Route::get('/about', [UserAuthController::class,'showAbout'])->name('about');
+
+
+Route::get('/doctor/appointments', [DoctorAuthController::class, 'showAppointments'])->name('doctor.appointments');

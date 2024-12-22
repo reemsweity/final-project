@@ -76,18 +76,7 @@ public function updateStatus($appointmentId, $status)
     return redirect()->route('appointments.index')->with('success', 'Appointment status updated.');
 }
 
-public function showAppointments($doctorId)
-    {
-        // Get the doctor's details
-        $doctor = Doctor::findOrFail($doctorId);
 
-        // Get the appointments for the doctor
-        $appointments = Appointment::where('doctor_id', $doctorId)
-            ->orderBy('date_time', 'asc')
-            ->get();
 
-        // Return the view with the appointments
-        return view('pages.doctors.appointment', compact('doctor', 'appointments'));
-    }
 }
 

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Doctor;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -44,7 +45,8 @@ class DoctorAuthController extends Controller
     // Show the doctor login form
     public function showLoginForm()
     {
-        return view('pages.doctors.login'); // Adjust the view path as per your structure
+        $specialties = Specialization::all();
+        return view('pages.doctors.login',compact('specialties')); // Adjust the view path as per your structure
     }
 
     // Handle doctor login
@@ -85,8 +87,9 @@ class DoctorAuthController extends Controller
     // Show doctor profile
     public function profile()
     {
+        $specialties = Specialization::all();
         $doctor = Auth::guard('doctor')->user(); // Get the authenticated doctor
-        return view('pages.doctors.profile', compact('doctor')); // Adjust the view path
+        return view('pages.doctors.profile', compact('doctor','specialties')); // Adjust the view path
     }
     public function showEditForm()
     {
@@ -175,7 +178,24 @@ class DoctorAuthController extends Controller
         // Pass the doctors and the selected specialty to the view
         return view('pages.doctors', compact('doctors', 'specialties'));
     }
-  
+    public function showAppointments()
+    {
+        // Get the authenticated doctor
+        $doctor = Auth::guard('doctor')->user();
+    
+        // Check if the doctor is authenticated
+        if (!$doctor) {
+            return redirect()->route('doctor.login')->with('error', 'Please log in to view your appointments.');
+        }
+    
+        // Get the appointments for the authenticated doctor
+        $appointments = Appointment::where('doctor_id', $doctor->id)
+            ->orderBy('date_time', 'asc')
+            ->get();
+            $specialties = Specialization::all();
+        // Return the view with the doctor's appointments
+        return view('pages.doctors.appointment', compact('doctor', 'appointments','specialties'));
+    }
 
     
 

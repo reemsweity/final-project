@@ -14,7 +14,7 @@ class UserAuthController extends Controller
     public function showSignupForm()
     {
         $specialties = Specialization::all();
-        return view('pages.sign-up')->with('specialties');
+        return view('pages.sign-up' ,compact('specialties'));
     }
 
     // Handle the user signup request
@@ -62,9 +62,14 @@ class UserAuthController extends Controller
     public function showLoginForm()
     {
         $specialties = Specialization::all();
-        return view('pages.sign-in')->with('specialties');
+        return view('pages.sign-in',compact('specialties'));
     }
 
+    public function showAbout()
+    {
+        $specialties = Specialization::all();
+        return view('pages.about-us',compact('specialties'));
+    }
     // Handle user login
     public function login(Request $request)
     {
@@ -118,8 +123,9 @@ public function profile(Request $request)
 
 public function showEditForm()
 {
+    $specialties = Specialization::all();
     $user = Auth::user(); // Get the authenticated user
-    return view('editprofile', compact('user'));
+    return view('editprofile', compact('user','specialties'));
 }
 
 public function update(Request $request, $id)

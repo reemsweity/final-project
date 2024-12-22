@@ -185,9 +185,10 @@ class AdminDoctorController extends Controller
     {
         // Retrieve doctor data based on ID
         $doctor = Doctor::findOrFail($id);
+        $specialties =Specialization::all();
         $reviews = $doctor->reviews()->orderBy('created_at', 'DESC')->paginate((8));
         // Return the view with doctor data
-        return view('pages.drpage', compact('doctor','reviews'));
+        return view('pages.drpage', compact('doctor','reviews','specialties'));
     }
  
     public function showSpecialization()

@@ -64,6 +64,22 @@
                                             </li> --}}
                                         <li class="menu-list"> <a href="{{ url('contact-us') }}"
                                                 class="menu-link">Contact Us</a></li>
+                                                <li class="menu-list">
+                                                    <form id="specializationFilterForm" method="GET" action="{{ route('user.doctors') }}" style="margin: 0; width: auto; display: inline-block;">
+                                                        <select class="menu-link" name="specialization_id" 
+                                                                id="specializationDropdown" 
+                                                                onchange="document.getElementById('specializationFilterForm').submit()"
+                                                                style="width: 130px; padding: 8px; border: none; background: transparent; font-size: 1rem; cursor: pointer; outline: none;">
+                                                            <option value="">Specialties</option>
+                                                            <option value="">All Specialties</option>
+                                                            @foreach ($specialties as $specialty)
+                                                                <option value="{{ $specialty->id }}" {{ request('specialization_id') == $specialty->id ? 'selected' : '' }}>
+                                                                    {{ $specialty->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </form>
+                                                </li>
                                     </ul>
 
 

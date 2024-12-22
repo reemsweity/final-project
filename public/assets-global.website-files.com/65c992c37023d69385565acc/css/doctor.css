@@ -247,3 +247,116 @@
     border-color: #238f5a;
     color: #ffffff; /* White text */
 }
+/* General Sidebar Styling */
+.sidebar-section {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #ffffff; /* Adjust as per your design */
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+    overflow-y: auto;
+  }
+  
+  /* Sidebar Logo */
+  .sidebar-logo {
+    display: block;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .sidebar-logo img {
+    max-width: 150px;
+  }
+  
+  /* Sidebar Navigation */
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar-menu li {
+    margin-bottom: 10px;
+  }
+  
+  .sidebar-link {
+    color: #333333;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 10px 15px;
+    display: block;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+  
+  .sidebar-link:hover {
+    background-color: #f0f0f0;
+    color: #007bff;
+  }
+  
+  /* Sidebar Dropdown */
+  .sidebar-dropdown {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #333;
+    font-size: 1rem;
+  }
+  
+  /* Profile Section */
+  .sidebar-profile {
+    margin-top: 20px;
+  }
+  
+  .sidebar-profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    display: inline-block;
+  }
+  
+  .sidebar-auth .dropdown-menu {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar-auth .dropdown-item {
+    color: #333;
+    padding: 5px 10px;
+  }
+  
+  .sidebar-auth .dropdown-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .sidebar-section {
+      width: 200px;
+    }
+  
+    .sidebar-link {
+      font-size: 0.9rem;
+    }
+  
+    .sidebar-logo img {
+      max-width: 120px;
+    }
+  }
+  

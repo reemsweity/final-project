@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Specialization;
 use App\Models\Contact_msg;
 use Illuminate\Http\Request;
 
@@ -10,7 +10,8 @@ class UserContactController extends Controller
     // Show contact form
     public function showForm()
     {
-        return view('pages/contact-us');
+        $specialties = Specialization::all();
+        return view('pages/contact-us', compact('specialties'));
     }
 
     // Store a new message
