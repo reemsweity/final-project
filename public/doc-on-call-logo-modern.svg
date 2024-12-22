@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100">
+  <!-- Abstract D shape formed by overlapping circles -->
+  <circle cx="45" cy="50" r="20" fill="#43ba7f"/>
+  <circle cx="40" cy="50" r="15" fill="#238f5a"/>
+  <rect x="25" y="30" width="20" height="40" fill="#43ba7f"/>
+  
+  <!-- Pulse line across the D -->
+  <path d="M 25 50 
+           L 35 50 
+           L 38 35 
+           L 42 65 
+           L 45 50 
+           L 65 50" 
+        fill="none" 
+        stroke="#ffffff" 
+        stroke-width="3"
+        stroke-linecap="round"/>
+
+  <!-- Company Name -->
+  <text x="80" y="62" 
+        font-family="Arial, sans-serif" 
+        font-size="34" 
+        font-weight="bold" 
+        letter-spacing="-1">
+    <tspan fill="#193126">Doc</tspan><tspan fill="#43ba7f">On</tspan><tspan fill="#193126">Call</tspan>
+  </text>
+</svg>
