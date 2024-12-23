@@ -120,6 +120,22 @@ public function profile(Request $request)
                                 $specialties = Specialization::all();
     return view('profile', compact('user', 'appointments','specialties'));
 }
+public function cancelAppointment($id)
+{
+    $user = Auth::user(); // Get the authenticated user
+    $appointment = Appointment::where('id', $id)->where('user_id', $user->id)->first(); // Ensure the appointment belongs to the logged-in user
+
+    if (!$appointment) {
+        return redirect()->route('profile')->with('error', 'Appointment not found or does not belong to you.');
+    }
+
+    // Update the appointment status to 'cancelled'
+    $appointment->status = 'canceled';
+    $appointment->save();
+
+    return redirect()->route('profile')->with('success', 'Appointment cancelled successfully.');
+}
+
 
 public function showEditForm()
 {

@@ -56,6 +56,7 @@ Route::post('appointments/book/{doctorId}', [AppointmentController::class, 'book
 
 Route::get('appointments', [AppointmentController::class, 'index']);
    
+Route::patch('/appointments/{id}/cancel', [UserAuthController::class, 'cancelAppointment'])->name('appointments.cancel');
 
 });
 

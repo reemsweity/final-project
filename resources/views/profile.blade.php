@@ -81,6 +81,17 @@
                                         <span style="color: red; font-weight: bold;">Cancelled</span>
                                     @endif
                                 </td>
+                                <td style="padding: 10px;">
+                                    @if($appointment->status != 'completed' && $appointment->status != 'canceled')
+                                        <form action="{{ route('appointments.cancel', $appointment->id) }}" method="POST" style="display: inline;">
+                                            @csrf
+                                            @method('PATCH') <!-- Use PATCH to update the status -->
+                                            <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                                        </form>
+                                   
+                                    @endif
+                                </td>
+                                
                             </tr>
                         @endforeach
                     </tbody>
