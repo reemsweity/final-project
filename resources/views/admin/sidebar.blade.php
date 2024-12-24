@@ -79,12 +79,12 @@
     </li>
 
     <!-- Nav Item - Consultations -->
-    <li class="nav-item {{ Request::routeIs('admin.consultations') ? 'active' : '' }}">
+    {{-- <li class="nav-item {{ Request::routeIs('admin.consultations') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.consultations') }}">
             <i class="fas fa-stethoscope"></i>
             <span>Consultations</span>
         </a>
-    </li>
+    </li> --}}
 
     <!-- Nav Item - Testimonials -->
     <li class="nav-item {{ Request::routeIs('admin.testimonials') ? 'active' : '' }}">

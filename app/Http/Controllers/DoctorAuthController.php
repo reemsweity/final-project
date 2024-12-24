@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use App\Models\Doctor;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
@@ -80,23 +80,25 @@ class DoctorAuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('doctor/login');
+        return redirect('home');
     }
     
 
     // Show doctor profile
-    public function profile()
+    public function editprofile()
     {
+        $specializations = Specialization::all(); 
         $specialties = Specialization::all();
         $doctor = Auth::guard('doctor')->user(); // Get the authenticated doctor
-        return view('pages.doctors.profile', compact('doctor','specialties')); // Adjust the view path
+        return view('pages.doctors.editprofiledoctor', compact('doctor','specialties','specializations')); // Adjust the view path
     }
-    public function showEditForm()
+    public function profile()
     {
-    $doctor = Auth::guard('doctor')->user();
-    $specializations = Specialization::all(); // Retrieve all specializations
-    return view('pages.doctors.editprofile', compact('doctor', 'specializations'));
-}
+       
+        $specialties = Specialization::all();
+        $doctor = Auth::guard('doctor')->user(); // Get the authenticated doctor
+        return view('pages.doctors.profiledoctor', compact('doctor','specialties')); // Adjust the view path
+    }
 
     
     // Update doctor profile
@@ -178,7 +180,7 @@ class DoctorAuthController extends Controller
         // Pass the doctors and the selected specialty to the view
         return view('pages.doctors', compact('doctors', 'specialties'));
     }
-    public function showAppointments()
+    public function showAppointments(Request $request)
     {
         // Get the authenticated doctor
         $doctor = Auth::guard('doctor')->user();
@@ -188,15 +190,85 @@ class DoctorAuthController extends Controller
             return redirect()->route('doctor.login')->with('error', 'Please log in to view your appointments.');
         }
     
-        // Get the appointments for the authenticated doctor
-        $appointments = Appointment::where('doctor_id', $doctor->id)
-            ->orderBy('date_time', 'asc')
-            ->get();
-            $specialties = Specialization::all();
-        // Return the view with the doctor's appointments
-        return view('pages.doctors.appointment', compact('doctor', 'appointments','specialties'));
+        // Get the status from the request, if any
+        $status = $request->input('status');
+    
+        // Build the query to get appointments
+        $query = Appointment::where('doctor_id', $doctor->id);
+    
+        // Apply filter if status is selected
+        if ($status) {
+            $query->where('status', $status);
+        }
+    
+        // Get the appointments for the authenticated doctor with pagination
+        $appointments = $query->orderBy('created_at', 'DESC')->paginate(10);
+    
+        // Optionally, you can get specialties if needed for the view
+        $specialties = Specialization::all();
+    
+        // Return the view with the doctor's appointments and specialties
+        return view('pages.doctors.appointment', compact('doctor', 'appointments', 'specialties'));
+    }
+    
+
+    public function showUser($id){
+        $user = User::findOrFail($id);
+        $specialties = Specialization::all();
+        return view('pages.doctors.userinfo',compact('user','specialties'));
     }
 
-    
+
+    public function updateZoom(Request $request)
+{
+    $request->validate([
+        'appointment_id' => 'required|exists:appointments,id',
+        'zoom_link' => 'nullable|string',
+        'zoom_pass' => 'nullable|string',
+    ]);
+
+    $appointment = Appointment::findOrFail($request->appointment_id);
+    $appointment->zoom_link = $request->zoom_link;
+    $appointment->zoom_pass = $request->zoom_pass;
+    $appointment->save();
+
+    return redirect()->back()->with('success', 'Zoom details updated successfully.');
+}
+
+public function updateStatus(Request $request, $id)
+{
+    // Validate the status input
+    $request->validate([
+        'status' => 'required|in:pending,confirmed,completed,cancelled',
+    ]);
+
+    // Find the appointment
+    $appointment = Appointment::findOrFail($id);
+
+    // Update the status
+    $appointment->status = $request->input('status');
+    $appointment->save();
+
+    // Redirect back with a success message
+    return redirect()->back()->with('success', 'Appointment status updated successfully.');
+}
+
+
+public function showAllDoctors($id)
+    {
+        // Retrieve doctor data based on ID
+        $doctor = Doctor::findOrFail($id);
+        $specialties =Specialization::all();
+        $reviews = $doctor->reviews()->orderBy('created_at', 'DESC')->paginate((8));
+        // Return the view with doctor data
+        return view('pages.doctors.drpage', compact('doctor','reviews','specialties'));
+    }
+
+    public function getUserDetails($id)
+{
+    $user = User::findOrFail($id);
+    return response()->json($user);
+}
+
 
 }

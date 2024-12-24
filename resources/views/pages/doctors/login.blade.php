@@ -27,12 +27,13 @@
         rel="shortcut icon" type="image/x-icon" />
     <link href="../cdn.prod.website-files.com/65c992c37023d69385565acc/65c9dc398a42023d2fd60f43_webclip_256x256px.png"
         rel="apple-touch-icon" />
+        
 </head>
 
 <body>
     <div id="Scroll-Top" class="page-wrapper">
         <section class="header-section">
-            <div class="w-layout-blockcontainer container w-container">
+            <div class="w-layout-blockcontainer container w-container" style=" max-width: 90%;">
                 <div class="header-nav-block">
                     <div data-animation="over-left" data-collapse="medium" data-duration="400" data-easing="ease"
                         data-easing2="ease" role="banner" class="header-nav-inner-block w-nav">
@@ -42,13 +43,13 @@
                                 <img src="{{ asset('doc-on-call-logo-modern.svg') }}" loading="lazy" alt="Logo Image" class="logo" />
                             </a>
                             
-
+    
                             <nav role="navigation" class="nav-menu-wrap w-nav-menu">
                                 <div class="nav-menu-list-wrapper">
                                     <ul role="list" class="nav-menu w-list-unstyled">
                                         <li class="mobile-logo-wrap">
                                             <a href="{{ url('home') }}" class="navbar-logo w-nav-brand">
-                                                <img src="{{ asset('cdn.prod.website-files.com/65c992c37023d69385565acc/65c9a4e9f78ae07595c9f519_medcare-logo.png') }}"
+                                                <img src="{{ asset('doc-on-call-logo-modern.svg') }}"
                                                     loading="lazy" alt="Logo Image" class="logo" />
                                             </a>
                                         </li>
@@ -62,8 +63,7 @@
                                             <a href="{{ url('appointment') }}"
                                                 class="menu-link">Appointment</a>
                                             </li> --}}
-                                        <li class="menu-list"> <a href="{{ url('contact-us') }}"
-                                                class="menu-link">Contact Us</a></li>
+                                        
                                                 <li class="menu-list">
                                                     <form id="specializationFilterForm" method="GET" action="{{ route('user.doctors') }}" style="margin: 0; width: auto; display: inline-block;">
                                                         <select class="menu-link" name="specialization_id" 
@@ -80,16 +80,20 @@
                                                         </select>
                                                     </form>
                                                 </li>
-                                    </ul>
-
-
-
+                                                <li class="menu-list"> <a href="{{ url('contact-us') }}"
+                                                    class="menu-link">Contact Us</a></li>
+                                                <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Login as Doctor</a></li>
+                                            
+                                            </ul>
+    
+    
+    
                                     <div class="nav-menu-button-wrapper">
-
+    
                                         <!-- Conditional Authentication Links -->
                                         @if (Auth::check())
                                             <!-- Profile Dropdown -->
-
+    
                                             <a href="#" class="menu-link dropdown-toggle menu-list dropdown"
                                             data-bs-toggle="dropdown" aria-expanded="false">
                                             <img src="{{ Auth::user()->profile_img ? asset(Auth::user()->profile_img) : asset('default-profile.jpg') }}"
@@ -119,7 +123,7 @@
                                     </div>
                                 </div>
                             </nav>
-
+    
                             <!-- Mobile Menu Button -->
                             <div class="menu-button w-nav-button">
                                 <div class="mobile-menu-icon w-icon-nav-menu"></div>

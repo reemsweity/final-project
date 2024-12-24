@@ -57,8 +57,7 @@
                                             <a href="{{ url('appointment') }}"
                                                 class="menu-link">Appointment</a>
                                             </li> --}}
-                                        <li class="menu-list"> <a href="{{ url('contact-us') }}"
-                                                class="menu-link">Contact Us</a></li>
+                                        
                                                 <li class="menu-list">
                                                     <form id="specializationFilterForm" method="GET" action="{{ route('user.doctors') }}" style="margin: 0; width: auto; display: inline-block;">
                                                         <select class="menu-link" name="specialization_id" 
@@ -74,8 +73,12 @@
                                                             @endforeach
                                                         </select>
                                                     </form>
-                                                </li>      
-                                    </ul>
+                                                </li>
+                                                <li class="menu-list"> <a href="{{ url('contact-us') }}"
+                                                    class="menu-link">Contact Us</a></li>
+                                                <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Login as Doctor</a></li>
+                                            
+                                            </ul>
 
 
 
@@ -86,12 +89,13 @@
                                             <!-- Profile Dropdown -->
 
                                             <a href="#" class="menu-link dropdown-toggle menu-list dropdown"
-                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                <img src="{{ Auth::user()->profile_img ? asset(Auth::user()->profile_img) : asset('default-profile.jpg') }}"
-                                                alt="Profile Image"
-                                                style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;" />
-                                                {{ Auth::user()->name }}
-                                            </a>
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="{{ Auth::user()->profile_img ? asset(Auth::user()->profile_img) : asset('default-profile.jpg') }}"
+                                                 alt="Profile Image"
+                                                 style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;" />
+                                            {{ Auth::user()->name }}
+                                         </a>
+                                         
                                             <ul class="dropdown-menu"
                                                 style="background-color: #ffffff; border-radius: 5px; padding: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
                                                 <li><a href="{{ route('profile') }}" class="dropdown-item">Profile</a>

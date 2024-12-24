@@ -73,90 +73,45 @@
                         data-easing2="ease" role="banner" class="header-nav-inner-block w-nav">
                         <div class="header-navbar-wrapper">
                             <!-- Logo -->
-                            <a href="{{ url('home') }}" class="navbar-logo w-nav-brand">
+                            <a href="" class="navbar-logo w-nav-brand">
                                 <img src="{{ asset('doc-on-call-logo-modern.svg') }}"
                                     loading="lazy" alt="Logo Image" class="logo" />
                             </a>
 
                             <nav role="navigation" class="nav-menu-wrap w-nav-menu">
-                                <div class="nav-menu-list-wrapper">
-                                    <ul role="list" class="nav-menu w-list-unstyled">
+                                <div class="nav-menu-list-wrapper" style="display: flex; justify-content: space-between; width: 100%;">
+                                    <ul role="list" class="nav-menu w-list-unstyled" style="display: flex; align-items: center;">
                                         <li class="mobile-logo-wrap">
                                             <a href="{{ url('home') }}" class="navbar-logo w-nav-brand">
-                                                <img src="{{ asset('doc-on-call-logo-modern.svg') }}"
-                                                    loading="lazy" alt="Logo Image" class="logo" />
+                                                <img src="{{ asset('doc-on-call-logo-modern.svg') }}" loading="lazy" alt="Logo Image" class="logo" />
                                             </a>
                                         </li>
-                                        <li class="menu-list"><a href="{{ url('home') }}" class="menu-link">Home</a>
+                                        <li class="menu-list">
+                                            <a href="{{ url('home') }}" class="menu-link">Home</a>
                                         </li>
-                                        <li class="menu-list"><a href="{{ url('about') }}" class="menu-link">About</a>
-                                        </li>
-                                        <li class="menu-list"><a href="{{ url('doctors') }}"
-                                                class="menu-link">Doctors</a></li>
-                                        {{-- <li class="menu-list">
-                                            <a href="{{ url('appointment') }}"
-                                                class="menu-link">Appointment</a>
-                                            </li> --}}
                                         
-                                                <li class="menu-list">
-                                                    <form id="specializationFilterForm" method="GET" action="{{ route('user.doctors') }}" style="margin: 0; width: auto; display: inline-block;">
-                                                        <select class="menu-link" name="specialization_id" 
-                                                                id="specializationDropdown" 
-                                                                onchange="document.getElementById('specializationFilterForm').submit()"
-                                                                style="width: 130px; padding: 8px; border: none; background: transparent; font-size: 1rem; cursor: pointer; outline: none;">
-                                                            <option value="">Specialties</option>
-                                                            <option value="">All Specialties</option>
-                                                            @foreach ($specialties as $specialty)
-                                                                <option value="{{ $specialty->id }}" {{ request('specialization_id') == $specialty->id ? 'selected' : '' }}>
-                                                                    {{ $specialty->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </form>
-                                                </li>
-                                                <li class="menu-list"> <a href="{{ url('contact-us') }}"
-                                                    class="menu-link">Contact Us</a></li>
-                                                <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Login as Doctor</a></li>
-                                            
-                                            </ul>
-
-
-
-                                    <div class="nav-menu-button-wrapper">
-
-                                        <!-- Conditional Authentication Links -->
-                                        @if (Auth::check())
-                                            <!-- Profile Dropdown -->
-
-                                            <a href="#" class="menu-link dropdown-toggle menu-list dropdown"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <img src="{{ Auth::user()->profile_img ? asset(Auth::user()->profile_img) : asset('default-profile.jpg') }}"
-                                                 alt="Profile Image"
-                                                 style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;" />
-                                            {{ Auth::user()->name }}
-                                         </a>
-                                         
-                                            <ul class="dropdown-menu"
-                                                style="background-color: #ffffff; border-radius: 5px; padding: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
-                                                <li><a href="{{ route('profile') }}" class="dropdown-item">Profile</a>
-                                                </li>
-                                                <li>
-                                                    <form action="{{ route('user.logout') }}" method="POST"
-                                                        style="display: inline;">
-                                                        @csrf
-                                                        <button type="submit" class="dropdown-item"
-                                                            style="color: #e74c3c; border: none; background: none; cursor: pointer;">Logout</button>
-                                                    </form>
-                                                </li>
-                                            </ul>
+                                        <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Profile</a></li>
+                                        <li class="menu-list"><a href="{{ url('doctor/appointments') }}" class="menu-link">Appointments</a></li>
+                                        <li class="menu-list"><a href="{{ route('doctor.doctorsDetailes', $doctor->id) }}" class="menu-link">Doctor Page</a></li>
+                                    </ul>
+                            
+                                    <div class="nav-menu-button-wrapper" style="display: flex; align-items: center;">
+                                        @if(auth()->guard('doctor')->check())
+                                        <form action="{{ route('doctor.logout') }}" method="POST">
+                                        @csrf
+                                        <button  class="button-outline w-button menu-list" style="color: red; border:1px solid red">Logout</button>
+                                    </form>
+                                           
                                         @else
-                                            <!-- Sign In Link -->
-                                            <a href="{{ url('user/login') }}"
-                                                class="button-outline w-button menu-list">Sign In</a>
+                                            <!-- If doctor is not logged in, show Sign In link -->
+                                            <a href="{{ url('doctor/login') }}" class="button-outline w-button menu-list">Sign In</a>
                                         @endif
                                     </div>
                                 </div>
                             </nav>
+                            
+                            
+                            
 
                             <!-- Mobile Menu Button -->
                             <div class="menu-button w-nav-button">
@@ -167,7 +122,6 @@
                 </div>
             </div>
         </section>
-
         <body>
             <div id="Scroll-Top" class="page-wrapper">
                 <main class="main-wrapper">
@@ -181,7 +135,7 @@
                                         <div class="divider">/</div><a href="{{ url('doctors') }}"
                                             class="page-link">Doctors</a>
                                         <div class="divider">/</div>
-                                        <div class="page-name">{{ $doctor->name }}</div>
+                                        <div class="page-name">Doctor Details</div>
                                     </div>
                                 </div>
                                 <div class="breadcrumb-shape-block">
@@ -413,18 +367,18 @@
                     <div class="w-layout-blockcontainer container w-container">
                         <div class="footer-block-wrapper">
                             <div data-w-id="930cbbf2-e22c-508e-4443-ba9f31767a12" class="footer-content">
-                                <div id="w-node-_930cbbf2-e22c-508e-4443-ba9f31767a13-31767a0f" class="footer-block">
-                                    <a href="{{ url('home') }}" class="footer-logo-link-block w-inline-block"> <img src="{{ asset('doc-on-call-logo-modern.svg') }}" loading="lazy" alt="Logo Image" class="logo" /></a>
-                                    <div class="footer-address">Revolutionizing healthcare with expert advice and
-                                        virtual care</div>
+                                <div id="w-node-_930cbbf2-e22c-508e-4443-ba9f31767a13-31767a0f" class="footer-block"><a
+                                        href="{{ url('home') }}" class="footer-logo-link-block w-inline-block"> <img src="{{ asset('doc-on-call-logo-modern.svg') }}" loading="lazy" alt="Logo Image" class="logo" /></a>
+                                    <div class="footer-address">Revolutionizing healthcare with expert advice and virtual care
+                                    </div>
                                     <div class="social-block"><a href="https://www.facebook.com/" target="_blank"
                                             class="footer-social-link w-inline-block"><img
                                                 src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65caef5f57fd0cc188939b25_facebook.svg"
                                                 loading="lazy" alt="Facebook Icon" class="social-image" /><img
                                                 src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65caf2bd6ac28d88edb0269b_facebook-white.svg"
-                                                loading="lazy" alt="Facebook Icon"
-                                                class="social-image-white" /></a><a href="https://twitter.com/"
-                                            target="_blank" class="footer-social-link w-inline-block"><img
+                                                loading="lazy" alt="Facebook Icon" class="social-image-white" /></a><a
+                                            href="https://twitter.com/" target="_blank"
+                                            class="footer-social-link w-inline-block"><img
                                                 src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65caf1a53bcc792a5eb37255_twitter.svg"
                                                 loading="lazy" alt="Twitter Icon" class="social-image" /><img
                                                 src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65caef749128b2ae1a08b938_twitter-fill.svg"
@@ -440,32 +394,30 @@
                                                 src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65caf1cdcf665b1c4ff072bb_instagram.svg"
                                                 loading="lazy" alt="Instragram" class="social-image" /><img
                                                 src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65caf2e967afff45c74d5c2a_instagram-white.svg"
-                                                loading="lazy" alt="Instragram" class="social-image-white" /></a>
-                                    </div>
+                                                loading="lazy" alt="Instragram" class="social-image-white" /></a></div>
                                 </div>
                                 <div class="footer-block">
                                     <div class="footer-title">Menu</div>
                                     <div class="footer-link-wrapper"><a href="{{ url('home') }}"
-                                            class="footer-link">Home</a><a href="{{ url('about') }}"
-                                            class="footer-link">About</a>
-                                            {{-- <a href="{{ url('appointment') }}"
-                                            class="footer-link">Appointment</a> --}}
-                                            <a href="{{ url('doctors') }}"
-                                            class="footer-link">Doctors</a><a href="{{ url('contact-us') }}"
-                                            aria-current="page" class="footer-link w--current">Contact</a></div>
+                                            class="footer-link">Home</a>
+                                            <a href="{{ url('doctor/profile') }}"
+                                            class="footer-link">Profile</a>
+                                           
+                                            <a href="{{ url('doctor/appointments') }}"
+                                            class="footer-link">Appointments</a><a href=""
+                                            aria-current="page" class="footer-link w--current">Reviews</a></div>
                                 </div>
-
+                
                                 <div class="footer-block">
                                     <div class="footer-title">Contact</div>
                                     <div class="footer-link-wrapper">
-                                        <a href="mailto:contact@medcare.com"
-                                            class="footer-link">DocOnCall@gmail.com</a><a href="tel:5055550125"
-                                            class="footer-link">(505) 555-0125</a>
+                                        <a href="mailto:contact@medcare.com" class="footer-link">DocOnCall@gmail.com</a><a
+                                            href="tel:5055550125" class="footer-link">(505) 555-0125</a>
                                     </div>
                                 </div>
                                 <div class="footer-block">
-
-
+                
+                
                                 </div>
                             </div>
                             <div data-w-id="930cbbf2-e22c-508e-4443-ba9f31767a4d" class="copy-right-block">
@@ -475,6 +427,7 @@
                         </div>
                     </div>
                 </section>
+                
     </main><a href="#Scroll-Top" class="scroll-to-top w-inline-block"><img
             src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65e7e75caa3c9f54b384abff_arrow-up.svg"
             loading="lazy" alt="Arrow Image" class="arrow-icon" /></a>

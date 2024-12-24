@@ -1,6 +1,5 @@
-@extends('pages.app')
+@extends('pages.doctors.layouts.app')
 @section('content')
-@section('title', 'Doctor Profile')
 @section('breadcrumb', 'Doctor Profile')
 
 <div class="profile-container" style="background-color: #f8f9fa;  padding: 40px 20px;">
@@ -19,12 +18,7 @@
             <a href="{{route('doctor.profile.edit')}}" style="display: block; background-color: #43ba7f; color: #ffffff; text-align: center; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: 500; margin-bottom: 15px; transition: opacity 0.2s;">
                Edit Profile
             </a>
-            <form action="{{ route('doctor.logout') }}" method="POST">
-                @csrf
-                <button type="submit" style="width: 100%; background-color: #e74c3c; color: #ffffff; padding: 12px; border-radius: 10px; border: none; font-weight: 500; cursor: pointer; transition: opacity 0.2s;">
-                    Logout
-                </button>
-            </form>
+            
         </div>
 
         <!-- Main Content -->
@@ -82,3 +76,4 @@
 </div>
 
 @endsection
+

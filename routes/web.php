@@ -30,7 +30,7 @@ Route::prefix('doctor')->name('doctor.')->group(function () {
 
     Route::middleware('auth.doctor')->group(function () {
         Route::get('/profile', [DoctorAuthController::class, 'profile'])->name('pages.doctors.profile');
-        Route::get('/profile/edit', [DoctorAuthController::class, 'showEditForm'])->name('profile.edit');
+        Route::get('/editprofile', [DoctorAuthController::class, 'editprofile'])->name('profile.edit');
         Route::put('/profile/update/{id}', [DoctorAuthController::class, 'update'])->name('profile.update');
     });
 });
@@ -80,7 +80,6 @@ Route::post('/doctor/{doctorId}/review', [AdminReviewController::class, 'storeDe
 
 Route::get('/doctors', [AdminDoctorController::class, 'getAllDoctors'])->name('user.doctors');
 Route::get('/doctors/show/{id}', [AdminDoctorController::class, 'showAllDoctors'])->name('user.doctorsdetailes');
-
 
 
 
@@ -222,10 +221,19 @@ Route::post('/contact', [UserContactController::class, 'store'])->name('contact.
 
 
 
+Route::patch('/appointments/{id}/status', [DoctorAuthController::class, 'updateStatus'])->name('appointments.updateStatus');
 
+
+Route::post('/appointments/update-zoom', [DoctorAuthController::class, 'updateZoom'])->name('appointments.updateZoom');
 
 
 Route::get('/about', [UserAuthController::class,'showAbout'])->name('about');
 
-
+Route::get('/doctor/user/{id}', [DoctorAuthController::class,'showUser'])->name('users.show');
 Route::get('/doctor/appointments', [DoctorAuthController::class, 'showAppointments'])->name('doctor.appointments');
+
+
+Route::get('/doctors/{id}', [DoctorAuthController::class, 'showAllDoctors'])->name('doctor.doctorsDetailes');
+
+
+Route::get('/doctor/user/{id}', [DoctorAuthController::class, 'getUserDetails']);

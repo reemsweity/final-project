@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!-- This site was created in Webflow. https://webflow.com --><!-- Last Published: Wed May 22 2024 10:44:37 GMT+0000 (Coordinated Universal Time) -->
-<html data-wf-domain="medcare-template.webflow.io" data-wf-page="65e6a7e60fb164351a89837e"
-    data-wf-site="65c992c37023d69385565acc" lang="en">
-<!-- Mirrored from medcare-template.webflow.io/sign-in by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Nov 2024 13:37:21 GMT -->
-
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <title>Sign In</title>
@@ -11,126 +7,125 @@
     <meta content="Sign In" property="twitter:title" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="Webflow" name="generator" />
-    <link href="../assets-global.website-files.com/65c992c37023d69385565acc/css/medcare-template.webflow.1b5882e1f.css"
-        rel="stylesheet" type="text/css" />
-        <link href="../assets-global.website-files.com/65c992c37023d69385565acc/css/doctor.css"
-        rel="stylesheet" type="text/css" />
+    <link href="../assets-global.website-files.com/65c992c37023d69385565acc/css/medcare-template.webflow.1b5882e1f.css" rel="stylesheet" type="text/css" />
+    <link href="../assets-global.website-files.com/65c992c37023d69385565acc/css/doctor.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         ! function(o, c) {
             var n = c.documentElement,
                 t = " w-mod-";
-            n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n
-                .className += t + "touch")
+            n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
         }(window, document);
     </script>
-    <link href="{{ asset('doc_on_call_logo_icon.png') }}"
-    rel="shortcut icon"  />
-    <link href="../cdn.prod.website-files.com/65c992c37023d69385565acc/65c9dc398a42023d2fd60f43_webclip_256x256px.png"
-        rel="apple-touch-icon" />
-        
+    <link href="{{ asset('doc_on_call_logo_icon.png') }}" rel="shortcut icon" />
+    <link href="../cdn.prod.website-files.com/65c992c37023d69385565acc/65c9dc398a42023d2fd60f43_webclip_256x256px.png" rel="apple-touch-icon" />
 
 </head>
 
 <body>
-    <div id="Scroll-Top" class="page-wrapper">
-        <section class="header-section">
-            <div class="w-layout-blockcontainer container w-container">
-                <div class="header-nav-block">
-                    <div data-animation="over-left" data-collapse="medium" data-duration="400" data-easing="ease"
-                        data-easing2="ease" role="banner" class="header-nav-inner-block w-nav">
-                        <div class="header-navbar-wrapper">
-                            <!-- Logo -->
-                            <a href="{{ url('home') }}" class="navbar-logo w-nav-brand">
-                                <img src="{{ asset('doc-on-call-logo-modern.svg') }}" loading="lazy" alt="Logo Image" class="logo" />
-                            </a>
-                            
 
-                            <nav role="navigation" class="nav-menu-wrap w-nav-menu">
-                                <div class="nav-menu-list-wrapper">
-                                    <ul role="list" class="nav-menu w-list-unstyled">
-                                        <li class="mobile-logo-wrap">
-                                            <a href="{{ url('home') }}" class="navbar-logo w-nav-brand">
-                                                <img src="{{ asset('doc-on-call-logo-modern.svg') }}"
-                                                    loading="lazy" alt="Logo Image" class="logo" />
-                                            </a>
-                                        </li>
-                                        <li class="menu-list"><a href="{{ url('home') }}" class="menu-link">Home</a>
-                                        </li>
-                                        <li class="menu-list"><a href="{{ url('about') }}" class="menu-link">About</a>
-                                        </li>
-                                        <li class="menu-list"><a href="{{ url('doctors') }}"
-                                                class="menu-link">Doctors</a></li>
-                                        {{-- <li class="menu-list">
-                                            <a href="{{ url('appointment') }}"
-                                                class="menu-link">Appointment</a>
-                                            </li> --}}
-                                        <li class="menu-list"> <a href="{{ url('contact-us') }}"
+    <section class="header-section">
+        <div class="w-layout-blockcontainer container w-container" style=" max-width: 90%;">
+            <div class="header-nav-block">
+                <div data-animation="over-left" data-collapse="medium" data-duration="400" data-easing="ease"
+                    data-easing2="ease" role="banner" class="header-nav-inner-block w-nav">
+                    <div class="header-navbar-wrapper">
+                        <!-- Logo -->
+                        <a href="{{ url('home') }}" class="navbar-logo w-nav-brand">
+                            <img src="{{ asset('doc-on-call-logo-modern.svg') }}" loading="lazy" alt="Logo Image" class="logo" />
+                        </a>
+                        
+
+                        <nav role="navigation" class="nav-menu-wrap w-nav-menu">
+                            <div class="nav-menu-list-wrapper">
+                                <ul role="list" class="nav-menu w-list-unstyled">
+                                    <li class="mobile-logo-wrap">
+                                        <a href="{{ url('home') }}" class="navbar-logo w-nav-brand">
+                                            <img src="{{ asset('doc-on-call-logo-modern.svg') }}"
+                                                loading="lazy" alt="Logo Image" class="logo" />
+                                        </a>
+                                    </li>
+                                    <li class="menu-list"><a href="{{ url('home') }}" class="menu-link">Home</a>
+                                    </li>
+                                    <li class="menu-list"><a href="{{ url('about') }}" class="menu-link">About</a>
+                                    </li>
+                                    <li class="menu-list"><a href="{{ url('doctors') }}"
+                                            class="menu-link">Doctors</a></li>
+                                    {{-- <li class="menu-list">
+                                        <a href="{{ url('appointment') }}"
+                                            class="menu-link">Appointment</a>
+                                        </li> --}}
+                                    
+                                            <li class="menu-list">
+                                                <form id="specializationFilterForm" method="GET" action="{{ route('user.doctors') }}" style="margin: 0; width: auto; display: inline-block;">
+                                                    <select class="menu-link" name="specialization_id" 
+                                                            id="specializationDropdown" 
+                                                            onchange="document.getElementById('specializationFilterForm').submit()"
+                                                            style="width: 130px; padding: 8px; border: none; background: transparent; font-size: 1rem; cursor: pointer; outline: none;">
+                                                        <option value="">Specialties</option>
+                                                        <option value="">All Specialties</option>
+                                                        @foreach ($specialties as $specialty)
+                                                            <option value="{{ $specialty->id }}" {{ request('specialization_id') == $specialty->id ? 'selected' : '' }}>
+                                                                {{ $specialty->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </form>
+                                            </li>
+                                            <li class="menu-list"> <a href="{{ url('contact-us') }}"
                                                 class="menu-link">Contact Us</a></li>
-                                                <li class="menu-list">
-                                                    <form id="specializationFilterForm" method="GET" action="{{ route('user.doctors') }}" style="margin: 0; width: auto; display: inline-block;">
-                                                        <select class="menu-link" name="specialization_id" 
-                                                                id="specializationDropdown" 
-                                                                onchange="document.getElementById('specializationFilterForm').submit()"
-                                                                style="width: 130px; padding: 8px; border: none; background: transparent; font-size: 1rem; cursor: pointer; outline: none;">
-                                                            <option value="">Specialties</option>
-                                                            <option value="">All Specialties</option>
-                                                            @foreach ($specialties as $specialty)
-                                                                <option value="{{ $specialty->id }}" {{ request('specialization_id') == $specialty->id ? 'selected' : '' }}>
-                                                                    {{ $specialty->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </form>
-                                                </li>
-                                    </ul>
+                                            <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Login as Doctor</a></li>
+                                        
+                                        </ul>
 
 
 
-                                    <div class="nav-menu-button-wrapper">
+                                <div class="nav-menu-button-wrapper">
 
-                                        <!-- Conditional Authentication Links -->
-                                        @if (Auth::check())
-                                            <!-- Profile Dropdown -->
+                                    <!-- Conditional Authentication Links -->
+                                    @if (Auth::check())
+                                        <!-- Profile Dropdown -->
 
-                                            <a href="#" class="menu-link dropdown-toggle menu-list dropdown"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                            <img src="{{ Auth::user()->profile_img ? asset(Auth::user()->profile_img) : asset('default-profile.jpg') }}"
-                                                 alt="Profile Image"
-                                                 style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;" />
-                                            {{ Auth::user()->name }}
-                                         </a>
-                                         
-                                            <ul class="dropdown-menu"
-                                                style="background-color: #ffffff; border-radius: 5px; padding: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
-                                                <li><a href="{{ route('profile') }}" class="dropdown-item">Profile</a>
-                                                </li>
-                                                <li>
-                                                    <form action="{{ route('user.logout') }}" method="POST"
-                                                        style="display: inline;">
-                                                        @csrf
-                                                        <button type="submit" class="dropdown-item"
-                                                            style="color: #e74c3c; border: none; background: none; cursor: pointer;">Logout</button>
-                                                    </form>
-                                                </li>
-                                            </ul>
-                                        @else
-                                            <!-- Sign In Link -->
-                                            <a href="{{ url('user/login') }}"
-                                                class="button-outline w-button menu-list">Sign In</a>
-                                        @endif
-                                    </div>
+                                        <a href="#" class="menu-link dropdown-toggle menu-list dropdown"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="{{ Auth::user()->profile_img ? asset(Auth::user()->profile_img) : asset('default-profile.jpg') }}"
+                                             alt="Profile Image"
+                                             style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;" />
+                                        {{ Auth::user()->name }}
+                                     </a>
+                                     
+                                        <ul class="dropdown-menu"
+                                            style="background-color: #ffffff; border-radius: 5px; padding: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+                                            <li><a href="{{ route('profile') }}" class="dropdown-item">Profile</a>
+                                            </li>
+                                            <li>
+                                                <form action="{{ route('user.logout') }}" method="POST"
+                                                    style="display: inline;">
+                                                    @csrf
+                                                    <button type="submit" class="dropdown-item"
+                                                        style="color: #e74c3c; border: none; background: none; cursor: pointer;">Logout</button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    @else
+                                        <!-- Sign In Link -->
+                                        <a href="{{ url('user/login') }}"
+                                            class="button-outline w-button menu-list">Sign In</a>
+                                    @endif
                                 </div>
-                            </nav>
-
-                            <!-- Mobile Menu Button -->
-                            <div class="menu-button w-nav-button">
-                                <div class="mobile-menu-icon w-icon-nav-menu"></div>
                             </div>
+                        </nav>
+
+                        <!-- Mobile Menu Button -->
+                        <div class="menu-button w-nav-button">
+                            <div class="mobile-menu-icon w-icon-nav-menu"></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+    
+
         <div class="main-wrapper">
             <section class="authentication-section position-absolute d-flex">
                 <div class="w-layout-blockcontainer container position-absolute w-container">
