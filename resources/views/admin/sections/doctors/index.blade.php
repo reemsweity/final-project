@@ -41,7 +41,7 @@
                         @if($doctor->profile_img)
                             <img src="{{ Storage::url($doctor->profile_img) }}" alt="Profile Image" class="img-fluid rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
                         @else
-                            N/A
+                        <img src="{{asset('doctor-default.png') }}" alt="Profile Image" class="img-fluid rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
                         @endif
                     </td>
                     <td>{{ Str::limit($doctor->name, 15) }}</td>

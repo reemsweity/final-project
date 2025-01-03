@@ -57,7 +57,7 @@
             </div>
         </section>
         <div class="main-wrapper">
-            <section class="breadcrumb-section">
+            {{-- <section class="breadcrumb-section">
                 <div class="w-layout-blockcontainer container w-container">
                     <div class="breadcrumb-wrapper">
                         <div class="breadcrumb-title-block">
@@ -85,4 +85,4 @@
                 </div><img
                     src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65c9da79c4f7ccc63241e432_Outside-vector-large.svg"
                     loading="lazy" alt="Vector" class="outside-vector-large" />
-            </section>
+            </section> --}}

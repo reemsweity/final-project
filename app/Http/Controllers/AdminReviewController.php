@@ -141,5 +141,14 @@ public function edits($reviewId)
 
     return view('pages.reviews.edit', compact('review'));
 }
+public function showReviews($doctorId)
+    {
+        $doctor = Doctor::findOrFail($doctorId); // Fetch the doctor
+        $reviews = Review::with('user') // Eager load the user (review author)
+                         ->where('doctor_id', $doctorId)
+                         ->where('status', 'approved') // Only show approved reviews
+                         ->get();
 
+        return view('pages.doctors.reviews', compact('doctor', 'reviews'));
+    }
 }

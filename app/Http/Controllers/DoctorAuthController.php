@@ -223,7 +223,15 @@ class DoctorAuthController extends Controller
 {
     $request->validate([
         'appointment_id' => 'required|exists:appointments,id',
-        'zoom_link' => 'nullable|string',
+        'zoom_link' => [
+        'nullable',
+        'url',
+        function ($attribute, $value, $fail) {
+            if (!str_starts_with($value, 'https://zoom.us/')) {
+                $fail('The Zoom link must start with "https://zoom.us/".');
+            }
+        },
+    ],
         'zoom_pass' => 'nullable|string',
     ]);
 

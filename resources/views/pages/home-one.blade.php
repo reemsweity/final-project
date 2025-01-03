@@ -82,7 +82,7 @@
                                                 class="menu-link">Appointment</a>
                                             </li> --}}
                                         
-                                                <li class="menu-list">
+                                                {{-- <li class="menu-list">
                                                     <form id="specializationFilterForm" method="GET" action="{{ route('user.doctors') }}" style="margin: 0; width: auto; display: inline-block;">
                                                         <select class="menu-link" name="specialization_id" 
                                                                 id="specializationDropdown" 
@@ -97,7 +97,7 @@
                                                             @endforeach
                                                         </select>
                                                     </form>
-                                                </li>
+                                                </li> --}}
                                                 <li class="menu-list"> <a href="{{ url('contact-us') }}"
                                                     class="menu-link">Contact Us</a></li>
                                                 <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Login as Doctor</a></li>
@@ -396,69 +396,8 @@
 
 
 
-            {{-- <section class="cta-section">
-                <div class="w-layout-blockcontainer container w-container">
-                    <div data-w-id="b3185ae5-db1f-0c33-7963-6e702b7e32dc" class="cta-wrapper center">
-                        <div class="cta-banner-image-wrap"><img
-                                src="../../cdn.prod.website-files.com/65c992c37023d69385565acc/65cca34667321a9a91919866_CTA-banner.jpg"
-                                loading="lazy"
-                                sizes="(max-width: 479px) 94vw, (max-width: 767px) 450px, (max-width: 991px) 331.1875px, (max-width: 1279px) 460.796875px, (max-width: 1439px) 561.59375px, (max-width: 1919px) 600px, 691.1875px"
-                                srcset="https://assets-global.website-files.com/65c992c37023d69385565acc/65cca34667321a9a91919866_CTA-banner-p-500.jpg 500w, https://assets-global.website-files.com/65c992c37023d69385565acc/65cca34667321a9a91919866_CTA-banner.jpg 700w"
-                                alt="CTA Banner" class="cta-banner-image" /></div>
-                        <div class="cta-content-wrap">
-                            <div class="cta-content">
-                                <h2 class="cta-section-title cta">Get Appointment For Your Medical Service</h2>
-                                <div class="button-primary-wrap"><a href="{{ url('appointment') }}"
-                                        class="button-primary white w-button">Book Appointment</a></div>
-                            </div><img
-                                src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65d2f7ff8848a6206e4f1a66_CTA-bottom-pluse-vector.svg"
-                                loading="lazy" alt="Vector" class="cta-vector-shape" /><img
-                                src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65d2f8650e915364420906c0_CTA-top-ellipse-shape.svg"
-                                loading="lazy" alt="Ellipse Shape" class="cta-ellipse-shape" />
-                        </div>
-                    </div>
-                </div>
-            </section> --}}
-            <section class="brand-logo-section section-gap-y-axis-140px">
-                <div class="w-layout-blockcontainer container w-container">
-                    <div data-w-id="2dd67505-6a64-877c-c148-c62e38c47aab" class="brand-logo-main-wrapper">
-                        <div class="brand-logo-animation-wrapper">
-                            <div class="brand-logo-wrapper">
-                                <div class="company-logo-block"><img
-                                        src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65cda6374db29f47bae474d8_Asprotec.svg"
-                                        loading="lazy" alt="Company Logo" class="company-logo" /></div>
-                                <div class="company-logo-block"><img
-                                        src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65cda6767cfa50e206786c24_Hyposis.svg"
-                                        loading="lazy" alt="Company Logo" class="company-logo" /></div>
-                                <div class="company-logo-block"><img
-                                        src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65cda68ba87fbf277fc01366_promptyl.svg"
-                                        loading="lazy" alt="Company Logo" class="company-logo" /></div>
-                                <div class="company-logo-block"><img
-                                        src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65cda6a44db29f47bae49fa2_strequary.svg"
-                                        loading="lazy" alt="Company Logo" class="company-logo" /></div>
-                                <div class="company-logo-block"><img
-                                        src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65cda6bea80f1552a72a1b3a_Translic.svg"
-                                        loading="lazy" alt="Company Logo" class="company-logo" /></div>
-                                <div class="company-logo-block"><img
-                                        src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65cda6374db29f47bae474d8_Asprotec.svg"
-                                        loading="lazy" alt="Company Logo" class="company-logo" /></div>
-                                <div class="company-logo-block"><img
-                                        src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65cda6767cfa50e206786c24_Hyposis.svg"
-                                        loading="lazy" alt="Company Logo" class="company-logo" /></div>
-                                <div class="company-logo-block"><img
-                                        src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65cda6bea80f1552a72a1b3a_Translic.svg"
-                                        loading="lazy" alt="Company Logo" class="company-logo" /></div>
-                                <div class="company-logo-block"><img
-                                        src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65cda6a44db29f47bae49fa2_strequary.svg"
-                                        loading="lazy" alt="Company Logo" class="company-logo" /></div>
-                                <div class="company-logo-block"><img
-                                        src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65cda68ba87fbf277fc01366_promptyl.svg"
-                                        loading="lazy" alt="Company Logo" class="company-logo" /></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+         
+            
         </div>
         <section class="footer-section">
             <div class="w-layout-blockcontainer container w-container">
@@ -499,8 +438,7 @@
                                     class="footer-link">Home</a>
                                     <a href="{{ url('about') }}"
                                     class="footer-link">About</a>
-                                    {{-- <a href="{{ url('appointment') }}"
-                                    class="footer-link">Appointment</a> --}}
+                                  
                                     <a href="{{ url('doctors') }}"
                                     class="footer-link">Doctors</a>
                                     <a href="{{ url('contact-us') }}"

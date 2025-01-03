@@ -33,6 +33,7 @@ class AppointmentController extends Controller
         'user_id' => 'required|exists:users,id',
         'day_of_week' => 'required',
         'start_time' => 'required',
+        
     ]);
 
     // Combine day_of_week and start_time to create a datetime string

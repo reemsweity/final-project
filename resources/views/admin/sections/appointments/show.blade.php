@@ -31,7 +31,7 @@
                 <div class="col-md-6">
                     <h5><strong>Doctor:</strong> {{ $appointment->doctor->name }}</h5>
                     <p><strong>Email:</strong> {{ $appointment->doctor->email }}</p>
-                    <p><strong>Specialization:</strong> {{ $appointment->doctor->specialization }}</p>
+                    <p><strong>Specialization:</strong> {{ $appointment->doctor->specialization->name }}</p>
                 </div>
             </div>
 
@@ -65,14 +65,7 @@
             </div>
         </div>
 
-        <!-- Card Footer with Delete Button -->
-        <div class="card-footer">
-            <form action="{{ route('admin.appointments.destroy', $appointment->id) }}" method="POST" class="d-inline">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
-            </form>
-        </div>
+       
     </div>
 
     <div class="mt-3">

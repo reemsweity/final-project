@@ -37,17 +37,17 @@
             <!-- Approve and Reject Buttons -->
             <div class="custom-button-group">
                 <!-- Approve Button -->
-                <form action="{{ route('admin.reviews.approve', $review->id) }}" method="POST" class="d-inline">
+                <form action="{{ route('admin.reviews.approve', $review->id) }}" method="POST" class="d-inline" id="approve{{ $review->id }}">
                     @csrf
-                    <button type="submit" class="btn btn-success btn-sm me-2" onclick="return confirm('Are you sure you want to approve this review?')">
+                    <button type="button" class="btn btn-success btn-sm me-2" onclick="approveReview({{ $review->id }})">
                         <i class="fas fa-check"></i> Approve
                     </button>
                 </form>
-
+ 
                 <!-- Reject Button -->
-                <form action="{{ route('admin.reviews.reject', $review->id) }}" method="POST" class="d-inline">
+                <form action="{{ route('admin.reviews.reject', $review->id) }}" method="POST" class="d-inline" id="reject{{ $review->id }}">
                     @csrf
-                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to reject this review?')">
+                    <button type="button" class="btn btn-danger btn-sm" onclick="rejectReview({{ $review->id }})">
                         <i class="fas fa-times"></i> Reject
                     </button>
                 </form>
@@ -87,5 +87,45 @@
 @endsection
 
 @section('scripts')
+<script>
+function approveReview(reviewId) {
+    // SweetAlert confirmation popup
+    Swal.fire({
+        title: 'Are you sure you want to approve this review?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, reject',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If user confirms, submit the hidden delete form
+            document.getElementById(`approve${reviewId}`).submit();
+
+            
+        }
+    });
+}
+
+function rejectReview(reviewId) {
+    // SweetAlert confirmation popup
+    Swal.fire({
+        title: 'Are you sure you want to reject this review?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, approve',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If user confirms, submit the hidden delete form
+            document.getElementById(`reject${reviewId}`).submit();
+
+            
+        }
+    });
+}
+</script>
+
 <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- FontAwesome for star icons -->
 @endsection

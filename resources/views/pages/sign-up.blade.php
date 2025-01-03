@@ -64,7 +64,7 @@
                                                 class="menu-link">Appointment</a>
                                             </li> --}}
                                         
-                                                <li class="menu-list">
+                                                {{-- <li class="menu-list">
                                                     <form id="specializationFilterForm" method="GET" action="{{ route('user.doctors') }}" style="margin: 0; width: auto; display: inline-block;">
                                                         <select class="menu-link" name="specialization_id" 
                                                                 id="specializationDropdown" 
@@ -79,7 +79,7 @@
                                                             @endforeach
                                                         </select>
                                                     </form>
-                                                </li>
+                                                </li> --}}
                                                 <li class="menu-list"> <a href="{{ url('contact-us') }}"
                                                     class="menu-link">Contact Us</a></li>
                                                 <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Login as Doctor</a></li>
@@ -177,12 +177,7 @@
                                         <input type="submit" data-wait="Please wait..." class="button-primary text-center w-button"
                                                value="Create Account" />
                                     </form>
-                                    <div class="w-form-done">
-                                        <div>Thank you! Your submission has been received!</div>
-                                    </div>
-                                    <div class="w-form-fail">
-                                        <div>Oops! Something went wrong while submitting the form.</div>
-                                    </div>
+                                  
                                 </div>
                             </div>
                         </div>

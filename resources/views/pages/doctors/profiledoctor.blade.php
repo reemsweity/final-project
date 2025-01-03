@@ -1,79 +1,58 @@
 @extends('pages.doctors.layouts.app')
 @section('content')
-@section('breadcrumb', 'Doctor Profile')
-
-<div class="profile-container" style="background-color: #f8f9fa;  padding: 40px 20px;">
-    <div class="profile-content" style="max-width: 1000px; margin: auto; display: grid; grid-template-columns: 300px 1fr; gap: 30px;">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <!-- Profile Image -->
-            <div style="text-align: center; margin-bottom: 25px;">
-                <img src="{{ Storage::url($doctor->profile_img) }}" alt="Doctor Profile Picture" 
-                    style="width: 150px; height: 150px; border-radius: 50%; border: 5px solid #43ba7f; object-fit:cover">
-                <h1 style="font-size: 1.8rem; color: #2d2d2d; margin-top: 15px; margin-bottom: 5px;">{{ $doctor->name }}</h1>
-                <p style="color: #43ba7f; font-size: 1.1rem; font-weight: 500;">{{ $doctor->specialization->name }}</p>
-            </div>
-
-            <!-- Quick Stats -->
-            <a href="{{route('doctor.profile.edit')}}" style="display: block; background-color: #43ba7f; color: #ffffff; text-align: center; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: 500; margin-bottom: 15px; transition: opacity 0.2s;">
-               Edit Profile
-            </a>
+@section('breadcrumb', 'Appointment')
+<div style="display: flex; background-color: #f8f9fa; min-height: 100vh; padding: 40px 20px;">
+    <!-- Sidebar -->
+    <div style="width: 250px; background-color: #2d2d2d; color: white; padding: 20px; border-radius: 8px; margin-right: 20px;">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="{{ Storage::url($doctor->profile_img) }}" alt="Doctor Profile Picture" 
+                style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;">
+            <h3 style="color: white; margin-top: 10px;">Dr.{{ $doctor->name }}</h3>
+            <p style="color: #43ba7f;">{{ $doctor->specialization->name }}</p>
             
         </div>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+        <a href="{{route('doctor.profile.edit')}}" style="background-color: #43ba7f; color: white; padding: 12px; border-radius: 6px; text-decoration: none; text-align: center;">
+            Edit Profile
+        </a>
+        </div>
+        {{-- <div style="display: flex; flex-direction: column; gap: 15px;">
+            <a href="{{ url('doctor/profile') }}" style="background-color: #444; color: white; padding: 12px; border-radius: 6px; text-decoration: none; text-align: center;">
+                My Profile
+            </a>
+            <a href="{{ url('doctor/appointments') }}" style="background-color: #444; color: white; padding: 12px; border-radius: 6px; text-decoration: none; text-align: center;">
+                My Appointments
+            </a>
+        </div> --}}
+    </div>
 
-        <!-- Main Content -->
-        <div class="main-content" style="display: flex; flex-direction: column; gap: 25px;">
-            <!-- About Section -->
-            <div style="background-color: #ffffff; border-radius: 20px; padding: 30px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);">
-                <h2 style="color: #2d2d2d; font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center;">
-                    About
-                </h2>
-                <p style="color: #666666; line-height: 1.8;">{{ $doctor->about ?? 'No information available' }}</p>
-            </div>
+    <!-- Main Content -->
+    <div style="flex-grow: 1; max-width: 1000px;">
+        
+        <!-- Main Content Sections -->
+        <div style="display: grid; gap: 40px;">
+            <section>
+                <h2 style="color: #43ba7f; font-size: 1.3rem; margin-bottom: 15px; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px;">About</h2>
+                <p style="color: #666; line-height: 1.6;">{{ $doctor->about ?? 'No information available' }}</p>
+            </section>
 
-            <!-- Work Experience -->
-            <div style="background-color: #ffffff; border-radius: 20px; padding: 30px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);">
-                <h2 style="color: #2d2d2d; font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center;">
-                    Work Experience
-                </h2>
-                <p style="color: #666666; line-height: 1.8;">{{ $doctor->work_experience ?? 'No information available' }}</p>
-            </div>
+            <section>
+                <h2 style="color: #43ba7f; font-size: 1.3rem; margin-bottom: 15px; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px;">Work Experience</h2>
+                <p style="color: #666; line-height: 1.6;">{{ $doctor->work_experience ?? 'No information available' }}</p>
+            </section>
 
-            <!-- Experience Years -->
-            <div style="background-color: #ffffff; border-radius: 20px; padding: 30px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);">
-                <h2 style="color: #2d2d2d; font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center;">
-                    Experience Years
-                </h2>
-                <p style="color: #666666; line-height: 1.8;">{{ $doctor->experience_years ?? 'No information available' }}</p>
-            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;">
+                <section>
+                    <h2 style="color: #43ba7f; font-size: 1.3rem; margin-bottom: 15px; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px;">Experience Years</h2>
+                    <p style="color: #666;">{{ $doctor->experience_years ?? 'No information available' }}</p>
+                </section>
 
-            <!-- Available Time -->
-            <div style="background-color: #ffffff; border-radius: 20px; padding: 30px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);">
-                <h2 style="color: #2d2d2d; font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center;">
-                    Available Time
-                </h2>
-                <p style="color: #666666; line-height: 1.8;">{{ $doctor->available_time ?? 'Not Provided' }}</p>
-            </div>
-
-            <!-- Contact Information -->
-            <div style="background-color: #ffffff; border-radius: 20px; padding: 30px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);">
-                <h2 style="color: #2d2d2d; font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center;">
-                    Contact Information
-                </h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 12px;">
-                        <h3 style="color: #43ba7f; font-size: 1.1rem; margin-bottom: 10px;">Phone Number</h3>
-                        <p style="color: #2d2d2d;">{{ $doctor->phone ?? 'Not Provided' }}</p>
-                    </div>
-                    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 12px;">
-                        <h3 style="color: #43ba7f; font-size: 1.1rem; margin-bottom: 10px;">Email Address</h3>
-                        <a href="mailto:{{ $doctor->email }}" style="color: #2d2d2d; text-decoration: none;">{{ $doctor->email }}</a>
-                    </div>
-                </div>
+                <section>
+                    <h2 style="color: #43ba7f; font-size: 1.3rem; margin-bottom: 15px; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px;">Available Time</h2>
+                    <p style="color: #666;">{{ $doctor->available_time ?? 'Not Provided' }}</p>
+                </section>
             </div>
         </div>
     </div>
 </div>
-
 @endsection
-

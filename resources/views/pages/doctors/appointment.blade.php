@@ -1,6 +1,18 @@
 @extends('pages.doctors.layouts.app')
 @section('content')
 @section('breadcrumb', 'Appointment')
+@if(session('success'))
+        <div class="alert alert-success" style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+            {{ session('success') }}
+        </div>
+    @elseif(session('error'))
+        <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+            {{ session('error') }}
+        </div>
+    @endif
+    @if ($errors->has('zoom_link'))
+    <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 20px;">{{ $errors->first('zoom_link') }}</div>
+@endif
 <div class="appointments-section" style="margin-top: 40px; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);">
     <div class="filter-section" style="margin-bottom: 20px;">
         <form action="{{ route('doctor.appointments') }}" method="GET">
@@ -15,16 +27,8 @@
         </form>
     </div>
 
-    <!-- Display success or error messages -->
-    @if(session('success'))
-        <div class="alert alert-success" style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
-            {{ session('success') }}
-        </div>
-    @elseif(session('error'))
-        <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
-            {{ session('error') }}
-        </div>
-    @endif
+   
+    
 
     <!-- Show doctor appointments -->
     @if($appointments->isEmpty())
@@ -37,6 +41,7 @@
                         <th style="text-align: left; padding: 10px; font-weight: bold; color: #43ba7f;">Patient Name</th>
                         <th style="text-align: left; padding: 10px; font-weight: bold; color: #43ba7f;">Appointment Date & Time</th>
                         <th style="text-align: left; padding: 10px; font-weight: bold; color: #43ba7f;">Zoom Link</th>
+                       
                         <th style="text-align: left; padding: 10px; font-weight: bold; color: #43ba7f;">Zoom Password</th>
                         <th style="text-align: left; padding: 10px; font-weight: bold; color: #43ba7f;">Action</th>
                         <th style="text-align: left; padding: 10px; font-weight: bold; color: #43ba7f;">Status</th>

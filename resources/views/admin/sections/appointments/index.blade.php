@@ -49,14 +49,7 @@
                                 <i class="fas fa-eye"></i>  <!-- Eye icon for View -->
                             </a>
                           
-                            <!-- Delete Button -->
-                            <form action="{{ route('admin.appointments.destroy', $appointment->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                            
                         </div>
                     </td>
                 </tr>

@@ -65,7 +65,7 @@
                                                 class="menu-link">Appointment</a>
                                             </li> --}}
                                         
-                                                <li class="menu-list">
+                                                {{-- <li class="menu-list">
                                                     <form id="specializationFilterForm" method="GET" action="{{ route('user.doctors') }}" style="margin: 0; width: auto; display: inline-block;">
                                                         <select class="menu-link" name="specialization_id" 
                                                                 id="specializationDropdown" 
@@ -80,7 +80,7 @@
                                                             @endforeach
                                                         </select>
                                                     </form>
-                                                </li>
+                                                </li> --}}
                                                 <li class="menu-list"> <a href="{{ url('contact-us') }}"
                                                     class="menu-link">Contact Us</a></li>
                                                 <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Login as Doctor</a></li>
@@ -165,11 +165,8 @@
                     loading="lazy" alt="Vector" class="outside-vector-large" />
             </section>
             
-            <section class="doctor-main-section section-gap-y-axis-140px">
-                <div class="w-layout-blockcontainer container w-container">
-                    <div data-w-id="c67e9d41-faca-76c1-25c7-b71855690eb1" style="opacity:0"
-                        class="doctor-main-section-wrapper">
-                        <div class="doctor-section-sidebar-wrap" style="margin: 20px 0; position: relative;">
+            <section class="doctor-main-section section-gap-y-axis-100px">
+                 <div class="doctor-section-sidebar-wrap" style=" ">
                             <div class="doctor-specialty-dropdown-wrap" style="position: relative; width: 100%;">
                                 <div class="doctor-specialty-dropdown-toggle" style="background-color: #ffffff; border-radius: 10px; padding: 12px 15px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); display: flex; align-items: center;">
                                     <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
@@ -188,11 +185,11 @@
                                                            padding: 8px;
                                                            border: none; 
                                                            background: transparent; 
-                                                           color: #2d2d2d; 
+                                                           color: #43ba7f; 
                                                            font-size: 1rem; 
                                                            cursor: pointer;
                                                            outline: none;">
-                                                <option value="">Specialties</option>
+                                                
                                                 <option value="">All Specialties</option>
                                                 @foreach ($specialties as $specialty)
                                                     <option value="{{ $specialty->id }}" {{ request('specialization_id') == $specialty->id ? 'selected' : '' }}>
@@ -205,14 +202,22 @@
                                 </div>
                             </div>
                         </div>
+                <div class="w-layout-blockcontainer container w-container">
+                    <div data-w-id="c67e9d41-faca-76c1-25c7-b71855690eb1" style="opacity:0"
+                        class="doctor-main-section-wrapper">
+                       
                         <div class="doctor-card-grid-block main">
                             <div class="doctor-collection-list-wrapper w-dyn-list">
-                                <div role="list" class="doctor-collection-list grid-3 w-dyn-items">
+                                <div role="list" class="doctor-collection-list grid-4 w-dyn-items">
                                     @foreach ($doctors as $doctor)
                                         <div role="listitem" class="doctor-card-item w-dyn-item">
                                             <div class="doctor-card-wrap">
                                                 <a href="{{ route('user.doctorsdetailes', $doctor->id) }}" class="dr-image-link w-inline-block">
+                                                    @if($doctor->profile_img)
                                                     <img src="{{ Storage::url($doctor->profile_img) }}" alt="Profile Image" class="dr-img">
+                                                @else
+                                                <img src="{{asset('doctor-default.png') }}" alt="Profile Image" class="dr-img" >
+                                                @endif
                                                 </a>
                                     
                                                 <div class="doctor-info-wrap">

@@ -48,8 +48,6 @@
                     <td>{{ $review->id }}</td>
                     <td>{{ $review->user->name }}</td>
                     <td>{{ $review->doctor->name }}</td>
-                    
-                    
                     <td>{{ $review->rating }}</td>
                     <td>{{ Str::limit($review->comment, 50) }}</td>
                     <td class="text-center">
@@ -73,13 +71,14 @@
                                 <i class="fas fa-eye"></i>
                             </a>
                             <!-- Delete Button -->
-                            <form action="{{ route('admin.reviews.destroy', $review->id) }}" method="POST" class="d-inline">
+                            <form action="{{ route('admin.reviews.destroy', $review->id) }}" id="delete-form-{{$review->id}}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteReview({{$review->id}})">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
+                           
                         </div>
                     </td>
                 </tr>
@@ -131,5 +130,25 @@
             }
         });
     });
+    function deleteReview(reviewId) {
+    // SweetAlert confirmation popup
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If user confirms, submit the hidden delete form
+            document.getElementById(`delete-form-${reviewId}`).submit();
+
+            
+        }
+    });
+}
+
 </script>
 @endsection

@@ -37,6 +37,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Status</th>
+                
                 <th>Actions</th>
             </tr>
         </thead>
@@ -61,6 +62,7 @@
                             <span class="badge bg-danger">Inactive</span>
                         @endif
                     </td>
+                    
                     <td>
                         <div class="d-flex justify-content-center">
                             <!-- Edit Button -->
@@ -68,12 +70,13 @@
                                 <i class="fas fa-edit"></i>
                             </a>
                             <!-- Delete Button -->
-                            <form action="{{ route('admin.specializations.destroy', $specializations->id) }}" method="POST" class="d-inline">
+                            <form action="{{ route('admin.specializations.destroy', $specializations->id) }}"  id="delete-form-{{ $specializations->id }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteSpecializations({{ $specializations->id }})">
                                     <i class="fas fa-trash"></i>
                                 </button>
+    
                             </form>
                         </div>
                     </td>
@@ -124,5 +127,26 @@
             }
         });
     });
+
+    function deleteSpecializations(specializationId) {
+    // SweetAlert confirmation popup
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If user confirms, submit the hidden delete form
+            document.getElementById(`delete-form-${specializationId}`).submit();
+
+            
+        }
+    });
+}
+
 </script>
 @endsection

@@ -5930,6 +5930,7 @@ figure {
 
 .doctor-main-section {
   background-color: var(--white-color-bg-two);
+  padding-right: 40px;
 }
 
 .doctor-main-section-wrapper {
@@ -5942,13 +5943,13 @@ figure {
 .doctor-section-sidebar-wrap {
   grid-column-gap: 14px;
   grid-row-gap: 14px;
-  background-color: rgba(67, 186, 127, .1);
+  margin-left: 40px;
   border-radius: 20px;
   flex-direction: column;
   width: 30%;
   padding: 16px;
   display: flex;
-  box-shadow: 0 16px 60px rgba(0, 0, 0, .05);
+  
 }
 
 .doctor-specialty-dropdown-wrap {

@@ -171,7 +171,7 @@ class AdminDoctorController extends Controller
         $query->where('specialization_id', $specializationId);
     }
 
-    $doctors = $query->paginate(4); // Paginate doctors
+    $doctors = $query->paginate(8); // Paginate doctors
 
     $specialties = Specialization::all(); // Retrieve all specializations
 

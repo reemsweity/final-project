@@ -98,7 +98,7 @@
                                                 class="menu-link">Appointment</a>
                                             </li> --}}
                                         
-                                                <li class="menu-list">
+                                                {{-- <li class="menu-list">
                                                     <form id="specializationFilterForm" method="GET" action="{{ route('user.doctors') }}" style="margin: 0; width: auto; display: inline-block;">
                                                         <select class="menu-link" name="specialization_id" 
                                                                 id="specializationDropdown" 
@@ -113,7 +113,7 @@
                                                             @endforeach
                                                         </select>
                                                     </form>
-                                                </li>
+                                                </li> --}}
                                                 <li class="menu-list"> <a href="{{ url('contact-us') }}"
                                                     class="menu-link">Contact Us</a></li>
                                                 <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Login as Doctor</a></li>
@@ -175,13 +175,13 @@
                         <div class="w-layout-blockcontainer container w-container">
                             <div class="breadcrumb-wrapper">
                                 <div class="breadcrumb-title-block">
-                                    <h1 class="breadcumb-title">{{ $doctor->name }}</h1>
+                                    <h1 class="breadcumb-title">Doctor's Details</h1>
                                     <div class="home-page-back-link-wrap"><a href="{{ url('home') }}"
                                             class="page-link">Home</a>
                                         <div class="divider">/</div><a href="{{ url('doctors') }}"
                                             class="page-link">Doctors</a>
                                         <div class="divider">/</div>
-                                        <div class="page-name">{{ $doctor->name }}</div>
+                                        <div class="page-name">Doctor's Details</div>
                                     </div>
                                 </div>
                                 <div class="breadcrumb-shape-block">

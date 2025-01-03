@@ -82,7 +82,7 @@
                                     @endif
                                 </td>
                                 <td style="padding: 10px;">
-                                    @if($appointment->status != 'completed' && $appointment->status != 'canceled')
+                                    @if($appointment->status != 'completed' && $appointment->status != 'cancelled')
                                         <form action="{{ route('appointments.cancel', $appointment->id) }}" method="POST" style="display: inline;">
                                             @csrf
                                             @method('PATCH') <!-- Use PATCH to update the status -->

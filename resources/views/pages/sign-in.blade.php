@@ -55,7 +55,7 @@
                                             class="menu-link">Appointment</a>
                                         </li> --}}
                                     
-                                            <li class="menu-list">
+                                            {{-- <li class="menu-list">
                                                 <form id="specializationFilterForm" method="GET" action="{{ route('user.doctors') }}" style="margin: 0; width: auto; display: inline-block;">
                                                     <select class="menu-link" name="specialization_id" 
                                                             id="specializationDropdown" 
@@ -70,7 +70,7 @@
                                                         @endforeach
                                                     </select>
                                                 </form>
-                                            </li>
+                                            </li> --}}
                                             <li class="menu-list"> <a href="{{ url('contact-us') }}"
                                                 class="menu-link">Contact Us</a></li>
                                             <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Login as Doctor</a></li>
@@ -177,12 +177,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="authentication-banner"><img
+                <div class="authentication-banner">
+                    <img
                         src="../cdn.prod.website-files.com/65c992c37023d69385565acc/65e6e12b4f03e2d8440da7a9_authentication%20-banner.jpg"
                         loading="lazy"
                         sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, (max-width: 1919px) 55vw, 950px"
                         srcset="https://assets-global.website-files.com/65c992c37023d69385565acc/65e6e12b4f03e2d8440da7a9_authentication%20-banner-p-500.jpg 500w, https://assets-global.website-files.com/65c992c37023d69385565acc/65e6e12b4f03e2d8440da7a9_authentication%20-banner-p-800.jpg 800w, https://assets-global.website-files.com/65c992c37023d69385565acc/65e6e12b4f03e2d8440da7a9_authentication%20-banner.jpg 950w"
-                        alt="Authentication Banner" class="authentication-banner-image" /></div>
+                        alt="Authentication Banner" class="authentication-banner-image" />
+                    </div>
             </section>
         </div>
         <section class="footer-section">

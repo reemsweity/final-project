@@ -237,3 +237,7 @@ Route::get('/doctors/{id}', [DoctorAuthController::class, 'showAllDoctors'])->na
 
 
 Route::get('/doctor/user/{id}', [DoctorAuthController::class, 'getUserDetails']);
+
+
+// Display reviews for a doctor
+Route::get('doctor/{doctorId}/reviews', [AdminReviewController::class, 'showReviews'])->name('doctor.reviews');
