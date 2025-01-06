@@ -74,50 +74,22 @@ class AdminUserController extends Controller
     
     public function update(Request $request, $id)
     {
-        // Validate incoming data
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'phone' => 'nullable|string|max:20',
-            'age' => 'nullable|integer',
-            'gender' => 'nullable|string|in:male,female',
-            'is_active' => 'required|boolean',
-            'profile_img' => 'nullable|image|max:2048', // Optional image validation
-            'current_medications' => 'nullable|string',
-            'allergies' => 'nullable|string',
-            'medical_history' => 'nullable|string',
+        // Validate the incoming data
+        $request->validate([
+            'is_active' => 'required|in:0,1', // Ensure is_active is either 0 or 1
         ]);
     
-        // Fetch the user
+        // Find the user by ID
         $user = User::findOrFail($id);
     
-        // Handle profile image upload
-        if ($request->hasFile('profile_img')) {
-            // Check if the user already has an image and delete it
-            if ($user->profile_img) {
-                $imagePath = str_replace('/storage/', '', $user->profile_img);
-                Storage::disk('public')->delete($imagePath);
-            }
-    
-            // Get the new image file
-            $profileImage = $request->file('profile_img');
-            // Generate a unique name for the new image
-            $imageName = time() . '.' . $profileImage->getClientOriginalExtension();
-            // Store the new image in 'public/profile_images' directory
-            $imagePath = $profileImage->storeAs('public/profile_images', $imageName);
-            // Save the new image path in the database (without 'public' prefix)
-            $validated['profile_img'] = 'storage/profile_images/' . $imageName;
-        }
-    
-        // Update other fields
-        $user->fill($validated);
+        // Update the is_active field
+        $user->is_active = $request->is_active;
         $user->save();
     
-        return redirect()->route('admin.users')->with('success', 'User updated successfully.');
+        // Redirect back with a success message
+        return redirect()->route('admin.users')->with('success', 'User status updated successfully!');
     }
-    /**
-     * Display the specified user.
-     */
+    
     public function show($id)
     {
         $user = User::findOrFail($id);

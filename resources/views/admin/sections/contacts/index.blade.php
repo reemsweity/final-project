@@ -22,14 +22,13 @@
             <option value="read">Read</option>
         </select>
     </div>
-
+    <div class="table-responsive">
     <table id="messagesTable" class="table table-sm table-striped table-bordered">
         <thead class="table-dark text-center">
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
+                
                 <th>Subject</th>
                 <th>Status</th>
                 <th>Status Value (Hidden)</th> <!-- Hidden column for filtering -->
@@ -41,8 +40,7 @@
                 <tr class="text-center align-middle" data-status="{{ $message->status }}">
                     <td>{{ $message->id }}</td>
                     <td>{{ $message->name }}</td>
-                    <td>{{ $message->email }}</td>
-                    <td>{{ $message->phone }}</td>
+                    
                     <td>{{ $message->subject }}</td>
                     <td>
                         <!-- Badge for Status -->
@@ -61,19 +59,7 @@
                                 <i class="fas fa-eye"></i> <!-- Eye icon for View -->
                             </a>
                             <!-- Mark as Read Button -->
-                            @if($message->status == 'unread')
-                                <form action="{{ route('admin.contact_messages.markAsRead', $message->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="btn btn-success btn-sm me-1">Mark as Read</button>
-                                </form>
-                            @else
-                                <form action="{{ route('admin.contact_messages.markAsUnread', $message->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="btn btn-warning btn-sm me-1">Mark as Unread</button>
-                                </form>
-                            @endif
+                            
                         </div>
                     </td>
                 </tr>
@@ -84,10 +70,8 @@
             @endforelse
         </tbody>
     </table>
-
-    {{-- <div class="mt-3">
-        {{ $contactMessages->links() }} <!-- Pagination links -->
-    </div> --}}
+</div>
+  
 </div>
 @endsection
 
@@ -111,7 +95,7 @@
             },
             columnDefs: [
                 {
-                    targets: 6, // Target the hidden status column (index 6)
+                    targets: 4, // Target the hidden status column (index 6)
                     visible: false // Hide the status column
                 }
             ]
@@ -126,9 +110,9 @@
         $('#statusFilter').on('change', function() {
             var status = this.value;
             if (status === '') {
-                table.column(6).search('').draw();  // Search the hidden status column
+                table.column(4).search('').draw();  // Search the hidden status column
             } else {
-                table.column(6).search('^' + status + '$', true, false).draw();  // Filter by the selected status (read/unread)
+                table.column(4).search('^' + status + '$', true, false).draw();  // Filter by the selected status (read/unread)
             }
         });
     });

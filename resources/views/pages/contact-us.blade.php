@@ -74,9 +74,9 @@
                                                         </select>
                                                     </form>
                                                 </li> --}}
-                                                <li class="menu-list"> <a href="{{ url('contact-us') }}"
-                                                    class="menu-link">Contact Us</a></li>
-                                                <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Login as Doctor</a></li>
+                                                <li class="menu-list"><a href="{{ url('services') }}" class="menu-link">Services</a></li>
+                            <li class="menu-list"> <a href="{{ url('contact-us') }}"
+                                class="menu-link">Contact Us</a></li>
                                             
                                             </ul>
 
@@ -180,9 +180,8 @@
                                     src="https://cdn.prod.website-files.com/65c992c37023d69385565acc/65d46bdd61a0aa9412a2f4db_phone-white.svg"
                                     loading="lazy" alt="Phone" class="contact-card-icon" /></div>
                             <div class="contact-card-contect-wrap">
-                                <div class="contct-card-title">Phone number</div><a href="tel:0987654567"
-                                    class="contact-card-info">+098(765)4567</a><a href="tel:55501118765"
-                                    class="contact-card-info">(808) 555-0111-8765</a>
+                                <div class="contct-card-title">Phone number</div><a href="tel:555-0125"
+                                    class="contact-card-info">(505) 555-0125</a>
                             </div>
                         </div>
                         <div data-w-id="4c033d8e-4a2c-d51d-51fb-61ad13b14f95"
@@ -290,11 +289,13 @@
                             <div class="footer-link-wrapper"><a href="{{ url('home') }}"
                                     class="footer-link">Home</a><a href="{{ url('about') }}"
                                     class="footer-link">About</a>
-                                    {{-- <a href="{{ url('appointment') }}"
-                                    class="footer-link">Appointment</a> --}}
+                            
                                     <a href="{{ url('doctors') }}"
-                                    class="footer-link">Doctors</a><a href="{{ url('contact-us') }}"
-                                    aria-current="page" class="footer-link w--current">Contact</a></div>
+                                    class="footer-link">Doctors</a>
+                                    <a href="{{ url('services') }}"
+                                    class="footer-link">Services</a>
+                                    <a href="{{ url('contact-us') }}"
+                                    aria-current="page" class="footer-link w--current">Contact Us</a></div>
                         </div>
 
                         <div class="footer-block">

@@ -17,9 +17,7 @@
 
     <!-- Appointment Profile Information -->
     <div class="card">
-        <div class="card-header">
-            <h4>Appointment - Details</h4>
-        </div>
+       
         <div class="card-body">
             <!-- User and Doctor Information in 2 Columns -->
             <div class="row">

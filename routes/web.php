@@ -162,9 +162,11 @@ Route::prefix('admin')->group(function () {
     
         
         Route::get('/testimonials', [AdminTestimonialController::class, 'index'])->name('admin.testimonials');
-        Route::patch('/testimonials/{id}/approve', [AdminTestimonialController::class, 'approve'])->name('admin.testimonials.approve');
-        Route::patch('/testimonials/{id}/reject', [AdminTestimonialController::class, 'reject'])->name('admin.testimonials.reject');
-        Route::delete('/testimonials/{id}', [AdminTestimonialController::class, 'destroy'])->name('admin.testimonials.destroy');
+        Route::get('/testimonials/create', [AdminTestimonialController::class, 'create'])->name('admin.testimonials.create');
+        Route::post('/testimonials/store', [AdminTestimonialController::class, 'store'])->name('admin.testimonials.store');
+        Route::put('/admin/testimonials/{id}/status', [AdminTestimonialController::class, 'updateStatus'])->name('admin.testimonials.updateStatus');
+
+        Route::delete('/testimonials/{testimonial}', [AdminTestimonialController::class, 'destroy'])->name('admin.testimonials.destroy');
         Route::get('/testimonials/{id}', [AdminTestimonialController::class, 'show'])->name('admin.testimonials.show');
 
         
@@ -228,7 +230,7 @@ Route::post('/appointments/update-zoom', [DoctorAuthController::class, 'updateZo
 
 
 Route::get('/about', [UserAuthController::class,'showAbout'])->name('about');
-
+Route::get('/services', [UserAuthController::class,'showServices'])->name('service');
 Route::get('/doctor/user/{id}', [DoctorAuthController::class,'showUser'])->name('users.show');
 Route::get('/doctor/appointments', [DoctorAuthController::class, 'showAppointments'])->name('doctor.appointments');
 
@@ -238,6 +240,10 @@ Route::get('/doctors/{id}', [DoctorAuthController::class, 'showAllDoctors'])->na
 
 Route::get('/doctor/user/{id}', [DoctorAuthController::class, 'getUserDetails']);
 
+Route::delete('/doctor/availability/{id}', [DoctorAuthController::class, 'deleteAvailability'])->name('doctor.availability.delete');
 
-// Display reviews for a doctor
-Route::get('doctor/{doctorId}/reviews', [AdminReviewController::class, 'showReviews'])->name('doctor.reviews');
+
+
+Route::get('appointments/payment/{appointmentId}', [AppointmentController::class, 'paymentPage'])->name('appointments.payment');
+Route::post('appointments/payment/{appointmentId}', [AppointmentController::class, 'processPayment'])->name('appointments.processPayment');
+Route::get('appointments/confirmation', [AppointmentController::class, 'confirmation'])->name('appointments.confirmation');

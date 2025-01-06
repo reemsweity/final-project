@@ -29,11 +29,7 @@
                 <div class="col-md-8">
                     <h5>Email: {{ $user->email }}</h5>
                     <p>Phone: {{ $user->phone }}</p>
-                    <p>Gender: {{ ucfirst($user->gender) }}</p>
-                    <p>Age: {{ $user->age }}</p>
-                    <p>Current Medications: {{ $user->current_medications }}</p>
-                    <p>Allergies: {{ $user->allergies }}</p>
-                    <p>Medical History: {{ $user->medical_history }}</p>
+                   
                     <p>Status: 
                         <span class="badge {{ $user->is_active ? 'bg-success' : 'bg-danger' }}">
                             {{ $user->is_active ? 'Active' : 'Inactive' }}
@@ -43,7 +39,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>
+           
             <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
                 @csrf
                 @method('DELETE')

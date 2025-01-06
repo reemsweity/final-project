@@ -7,42 +7,37 @@
                         data-easing2="ease" role="banner" class="header-nav-inner-block w-nav">
                         <div class="header-navbar-wrapper">
                             <!-- Logo -->
-                            <a href="" class="navbar-logo w-nav-brand">
+                            <a href="{{url('home')}}" class="navbar-logo w-nav-brand">
                                 <img src="{{ asset('doc-on-call-logo-modern.svg') }}"
                                     loading="lazy" alt="Logo Image" class="logo" />
                             </a>
 
                             <nav role="navigation" class="nav-menu-wrap w-nav-menu">
                                 <div class="nav-menu-list-wrapper" style="display: flex; justify-content: space-between; width: 100%;">
-                                    <ul role="list" class="nav-menu w-list-unstyled" style="display: flex; align-items: center;">
-                                        <li class="mobile-logo-wrap">
-                                            <a href="{{ url('home') }}" class="navbar-logo w-nav-brand">
-                                                <img src="{{ asset('doc-on-call-logo-modern.svg') }}" loading="lazy" alt="Logo Image" class="logo" />
-                                            </a>
-                                        </li>
-                                        <li class="menu-list">
-                                            <a href="{{ url('home') }}" class="menu-link">Home</a>
-                                        </li>
-                                        <li class="menu-list"><a href="{{ url('doctor/appointments') }}" class="menu-link">Appointments</a></li>
-                                        <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Profile</a></li>
-                                        
-                                        
-                                    </ul>
+                                    <!-- Left Side (Empty for now or add more links here) -->
+                                    <div class="nav-menu-left" style="display: flex; align-items: center;">
+                                        <!-- Add any additional menu items here if needed -->
+                                    </div>
                             
-                                    <div class="nav-menu-button-wrapper" style="display: flex; align-items: center;">
+                                    <!-- Right Side -->
+                                    <div class="nav-menu-right" style="display: flex; align-items: center;">
                                         @if(auth()->guard('doctor')->check())
-                                        <form action="{{ route('doctor.logout') }}" method="POST">
-                                        @csrf
-                                        <button  class="button-outline w-button menu-list" style="color: red; border:1px solid red">Logout</button>
-                                    </form>
-                                           
+                                            <form action="{{ route('doctor.logout') }}" method="POST" style="margin-left: auto;">
+                                                @csrf
+                                                <button class="button-outline w-button menu-list" style="color: red; border: 1px solid red;">
+                                                    Logout
+                                                </button>
+                                            </form>
                                         @else
                                             <!-- If doctor is not logged in, show Sign In link -->
-                                            <a href="{{ url('doctor/login') }}" class="button-outline w-button menu-list">Sign In</a>
+                                            <a href="{{ url('doctor/login') }}" class="button-outline w-button menu-list" style="margin-left: auto;">
+                                                Sign In
+                                            </a>
                                         @endif
                                     </div>
                                 </div>
                             </nav>
+                            
                             
                             
                             

@@ -36,10 +36,12 @@
                   <div class="footer-link-wrapper"><a href="{{url('home')}}"
                           class="footer-link">Home</a><a href="{{url('about')}}"
                           class="footer-link">About</a>
-                          {{-- <a href="{{url('appointment')}}" class="footer-link">Appointment</a> --}}
+                          
                           <a
-                          href="{{url('doctors')}}" class="footer-link">Doctors</a><a href="{{url('contact-us')}}"
-                          aria-current="page" class="footer-link w--current">Contact</a></div>
+                          href="{{url('doctors')}}" class="footer-link">Doctors</a><a href="{{ url('services') }}"
+                          class="footer-link">Services</a>
+                          <a href="{{ url('contact-us') }}"
+                          aria-current="page" class="footer-link w--current">Contact Us</a></div>
               </div>
               
               <div class="footer-block">

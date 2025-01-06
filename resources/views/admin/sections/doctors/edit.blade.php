@@ -1,4 +1,3 @@
-<!-- resources/views/admin/doctors/edit.blade.php -->
 @extends('dashboard')
 
 @section('content')
@@ -21,18 +20,6 @@
         </div>
 
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" class="form-control">
-            @error('password') <div class="alert alert-danger">{{ $message }}</div> @enderror
-        </div>
-
-        <div class="form-group">
-            <label for="profile_img">Profile Image</label>
-            <input type="file" name="profile_img" id="profile_img" class="form-control">
-            @error('profile_img') <div class="alert alert-danger">{{ $message }}</div> @enderror
-        </div>
-
-        <div class="form-group">
             <label for="about">About</label>
             <textarea name="about" id="about" class="form-control">{{ old('about', $doctor->about) }}</textarea>
             @error('about') <div class="alert alert-danger">{{ $message }}</div> @enderror
@@ -51,43 +38,21 @@
         </div>
 
         <div class="form-group">
-            <label for="facebook">Facebook</label>
-            <input type="text" name="facebook" id="facebook" class="form-control" value="{{ old('facebook', $doctor->facebook) }}">
-            @error('facebook') <div class="alert alert-danger">{{ $message }}</div> @enderror
-        </div>
-
-        <div class="form-group">
-            <label for="twitter">Twitter</label>
-            <input type="text" name="twitter" id="twitter" class="form-control" value="{{ old('twitter', $doctor->twitter) }}">
-            @error('twitter') <div class="alert alert-danger">{{ $message }}</div> @enderror
-        </div>
-
-        <div class="form-group">
-            <label for="available_time">Available Time</label>
-            <input type="text" name="available_time" id="available_time" class="form-control" value="{{ old('available_time', $doctor->available_time) }}">
-            @error('available_time') <div class="alert alert-danger">{{ $message }}</div> @enderror
-        </div>
-
-        <div class="form-group">
-            <label for="specialization_id">Specialization</label>
-            <select name="specialization_id" id="specialization_id" class="form-control">
-                <option value="">Select Specialization</option>
-                @foreach($specializations as $specialization)
-                    <option value="{{ $specialization->id }}" {{ old('specialization_id', $doctor->specialization_id) == $specialization->id ? 'selected' : '' }}>
-                        {{ $specialization->name }}
-                    </option>
-                @endforeach
-            </select>
-            @error('specialization_id') <div class="alert alert-danger">{{ $message }}</div> @enderror
-        </div>
-
-        <div class="form-group">
             <label for="phone">Phone</label>
             <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone', $doctor->phone) }}">
             @error('phone') <div class="alert alert-danger">{{ $message }}</div> @enderror
         </div>
-       
-       
+
+        <div class="row mb-3">
+            <label for="is_active" class="col-sm-2 col-form-label">Is Active</label>
+            <div class="col-sm-10">
+                <select class="form-select" id="is_active" name="is_active">
+                    <option value="1" {{ old('is_active', $doctor->is_active) ? 'selected' : '' }}>Active</option>
+                    <option value="0" {{ !old('is_active', $doctor->is_active) ? 'selected' : '' }}>Inactive</option>
+                </select>
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-primary">Save Changes</button>
         <a href="{{ route('admin.doctors') }}" class="btn btn-secondary">Cancel</a>
     </form>

@@ -27,7 +27,7 @@
             <option value="pending">Pending</option>
         </select>
     </div>
-
+    <div class="table-responsive">
     <table id="reviewsTable" class="table table-sm table-striped table-bordered">
         <thead class="table-dark text-center">
             <tr>
@@ -35,8 +35,7 @@
                 <th>User</th>
                 <th>Doctor</th>
                
-                <th>Rating</th>
-                <th>Comment</th>
+                
                 <th>Status</th> 
                 <th>Status Value (Hidden)</th> 
                 <th>Actions</th>
@@ -48,8 +47,7 @@
                     <td>{{ $review->id }}</td>
                     <td>{{ $review->user->name }}</td>
                     <td>{{ $review->doctor->name }}</td>
-                    <td>{{ $review->rating }}</td>
-                    <td>{{ Str::limit($review->comment, 50) }}</td>
+                   
                     <td class="text-center">
                         <!-- Status Badge -->
                         @if($review->status == 'approved')
@@ -86,6 +84,7 @@
         </tbody>
     </table>
 </div>
+</div>
 @endsection
 
 @section('styles')
@@ -109,7 +108,7 @@
             },
             columnDefs: [
                 {
-                    targets: 6, // Target the hidden status column (index 6)
+                    targets: 4, // Target the hidden status column (index 6)
                     visible: false // Hide the status column
                 }
             ]
@@ -124,9 +123,9 @@
         $('#statusFilter').on('change', function() {
             var selectedStatus = $(this).val();
             if (selectedStatus) {
-                table.column(6).search('^' + selectedStatus + '$', true, false).draw(); // Filter based on the raw status value
+                table.column(4).search('^' + selectedStatus + '$', true, false).draw(); // Filter based on the raw status value
             } else {
-                table.column(6).search('').draw(); // Show all if no status is selected
+                table.column(4).search('').draw(); // Show all if no status is selected
             }
         });
     });

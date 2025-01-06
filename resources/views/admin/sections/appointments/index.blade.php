@@ -18,7 +18,7 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <input type="text" id="searchAppointments" class="form-control w-50" placeholder="Search for appointments...">
     </div>
-
+    <div class="table-responsive">
     <table id="appointmentsTable" class="table table-sm table-striped table-bordered">
         <thead class="table-dark text-center">
             <tr>
@@ -26,7 +26,7 @@
                 <th>User</th>
                 <th>Doctor</th>
                 <th>Date & Time</th>
-                <th>Availability</th>
+               
                 <th>Actions</th>
             </tr>
         </thead>
@@ -37,11 +37,7 @@
                     <td>{{ $appointment->user->name }}</td>
                     <td>{{ $appointment->doctor->name }}</td>
                     <td>{{ $appointment->date_time }}</td>
-                    <td>
-                        <span class="badge {{ $appointment->availability == 'available' ? 'bg-success' : 'bg-danger' }}">
-                            {{ ucfirst($appointment->availability) }}
-                        </span>
-                    </td>
+                   
                     <td>
                         <div class="d-flex justify-content-center">
                             <!-- View Button -->
@@ -56,6 +52,7 @@
             @endforeach
         </tbody>
     </table>
+</div>
 </div>
 @endsection
 

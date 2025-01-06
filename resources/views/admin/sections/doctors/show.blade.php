@@ -22,23 +22,29 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 text-center">
                     <!-- Profile Image -->
                     @if($doctor->profile_img)
-                            <img src="{{ Storage::url($doctor->profile_img) }}" alt="Profile Image" class="img-fluid rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
-                        @else
-                            N/A
-                        @endif
+                        <img src="{{ Storage::url($doctor->profile_img) }}" alt="Profile Image" class="img-fluid rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                    @else
+                        <p class="text-muted">No Image Available</p>
+                    @endif
+
+                    <!-- Doctor's Personal Information Below the Image -->
+                    <div class="mt-3">
+                        <p><strong>Email:</strong> {{ $doctor->email }}</p>
+                        <p><strong>Phone:</strong> {{ $doctor->phone }}</p>
+                        <p><strong>Rating:</strong> {{ $doctor->rating }} / 5</p>
+                        <p><strong>Years of Experience:</strong> {{ $doctor->year_experience }}</p>
+                    </div>
                 </div>
+
                 <div class="col-md-8">
-                    <!-- Doctor's Personal Information -->
-                    <h5>Email: {{ $doctor->email }}</h5>
-                    <p>Phone: {{ $doctor->phone }}</p>
-                    <p>Specialization: {{ $doctor->specialization ? $doctor->specialization->name : 'N/A' }}</p>
-                    <p>About: {{ $doctor->about }}</p>
-                    <p>Work Experience: {{ $doctor->work_experience }}</p>
-                    <p>Years of Experience: {{ $doctor->year_experience }}</p>
-                    <p>Status: 
+                    <!-- Other Doctor's Details -->
+                    <h5><strong>Specialization:</strong> {{ $doctor->specialization ? $doctor->specialization->name : 'N/A' }}</h5>
+                    <p><strong>About:</strong> {{ $doctor->about }}</p>
+                    <p><strong>Work Experience:</strong> {{ $doctor->work_experience }}</p>
+                    <p><strong>Status:</strong>
                         <span class="badge {{ $doctor->is_active ? 'bg-success' : 'bg-danger' }}">
                             {{ $doctor->is_active ? 'Active' : 'Inactive' }}
                         </span>
@@ -46,14 +52,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer">
-            <a href="{{ route('admin.doctors.edit', $doctor->id) }}" class="btn btn-warning btn-sm">Edit</a>
-            <form action="{{ route('admin.doctors.destroy', $doctor->id) }}" method="POST" class="d-inline">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
-            </form>
-        </div>
+       
     </div>
 
     <div class="mt-3">

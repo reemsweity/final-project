@@ -20,6 +20,8 @@ class AdminReportController extends Controller
         // Fetch counts and summaries for dashboard display
         $data = [
             'users' => User::count(),
+            'activeUsers' => User::where('is_active', 1)->count(),
+            'inactiveUsers' => User::where('is_active', 0)->count(),
             'reviews'=>Review::count(),
             'doctors' => Doctor::count(),
             'testimonials' => Testimonial::count(),

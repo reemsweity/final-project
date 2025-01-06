@@ -14,9 +14,9 @@
                 <img src="{{ $admin && $admin->profile_img ? asset($admin->profile_img) : asset('default-profile.png') }}"
                      alt="Profile Image"
                      class="img-profile rounded-circle me-2"
-                     style="width: 40px; height: 40px; object-fit: cover;">
-                <!-- Admin Name -->
-                <span class="d-none d-lg-inline text-black big"style="color: black;">{{ $admin->name }}</span>
+                     style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
+                
+                <span style="color: black;">{{ $admin->name }}</span>
             </a>
             <!-- Dropdown Menu -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

@@ -10,6 +10,7 @@ class DoctorAvailability extends Model
     protected $table = 'doctor_availability'; 
     protected $fillable = [
         'doctor_id',
+        'day_of_week',
         'available_date',
         'start_time',
         'end_time',

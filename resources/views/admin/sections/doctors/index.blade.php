@@ -13,14 +13,20 @@
     @if(session('error'))
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <!-- Search Input -->
+        <input type="text" id="searchDoctors" class="form-control w-50" placeholder="Search by any field...">
 
-    <!-- Custom Search Input -->
-    <div class="mb-3">
-        <label for="searchDoctors" class="form-label">Search Doctors</label>
-        <input type="text" id="searchDoctors" class="form-control" placeholder="Search by any field...">
+        <!-- Filter by Status -->
+        <select id="statusFilter" class="form-select w-25">
+            <option value="">All Status</option>
+            <option value=1>Active</option>
+            <option value=0>Inactive</option>
+        </select>
     </div>
 
     <a href="{{ route('admin.doctors.create') }}" class="btn btn-primary mb-3">Create New Doctor</a>
+    <div class="table-responsive">
     <table id="example" class="table table-sm table-striped table-bordered">
         <thead class="table-dark text-center">
             <tr>
@@ -30,6 +36,7 @@
                 <th>Email</th>
                 <th>Specialization</th>
                 <th>Status</th>
+                <th>Status Value (Hidden)</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -41,7 +48,7 @@
                         @if($doctor->profile_img)
                             <img src="{{ Storage::url($doctor->profile_img) }}" alt="Profile Image" class="img-fluid rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
                         @else
-                        <img src="{{asset('doctor-default.png') }}" alt="Profile Image" class="img-fluid rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+                            <img src="{{asset('doctor-default.png') }}" alt="Profile Image" class="img-fluid rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
                         @endif
                     </td>
                     <td>{{ Str::limit($doctor->name, 15) }}</td>
@@ -52,6 +59,7 @@
                             {{ $doctor->is_active ? 'Active' : 'Inactive' }}
                         </span>
                     </td>
+                    <td class="d-none">{{ $doctor->is_active }}</td>
                     <td>
                         <div class="d-flex justify-content-center">
                             <a href="{{ route('admin.doctors.show', $doctor->id) }}" class="btn btn-info btn-sm me-1">
@@ -60,10 +68,10 @@
                             <a href="{{ route('admin.doctors.edit', $doctor->id) }}" class="btn btn-warning btn-sm me-1">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <form action="{{ route('admin.doctors.destroy', $doctor->id) }}" method="POST" class="d-inline">
+                            <form action="{{ route('admin.doctors.destroy', $doctor->id) }}" method="POST" id="delete-form-{{ $doctor->id }}" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteDoctor({{ $doctor->id }})">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
@@ -74,6 +82,7 @@
         </tbody>
     </table>
 </div>
+</div>
 @endsection
 
 @section('scripts')
@@ -81,22 +90,55 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    $(document).ready(function() {
-        // Initialize DataTable
-        var table = $('#example').DataTable({
-            searching: true, // Enable global search
-            search: {
-                caseInsensitive: true // Make search case-insensitive
+$(document).ready(function() {
+    // Initialize DataTable
+    var table = $('#example').DataTable({
+        searching: true, // Enable global search
+        search: {
+            caseInsensitive: true // Make search case-insensitive
+        },
+        columnDefs: [
+            {
+                targets: 6, // Hidden column with the actual status value
+                visible: false // Hide the status column
             }
-        });
-
-        // Custom Search Functionality
-        $('#searchDoctors').on('keyup', function() {
-            table.search(this.value).draw(); // Perform search on table
-        });
+        ]
     });
-    
+
+    // Custom Search Functionality
+    $('#searchDoctors').on('keyup', function() {
+        table.search(this.value).draw(); // Perform search on table
+    });
+
+    $('#statusFilter').on('change', function() {
+        var status = this.value;
+        if (status === '') {
+            table.column(6).search('').draw(); // Reset the filter
+        } else {
+            // Apply filter to the hidden status column (index 6)
+            table.column(6).search('^' + status + '$', true, false).draw();
+        }
+    });
+});
+
+function deleteDoctor(doctorId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Submit the delete form
+            document.getElementById(`delete-form-${doctorId}`).submit();
+        }
+    });
+}
 </script>
 @endsection

@@ -46,9 +46,10 @@
                                     </select>
                                 </form>
                             </li> --}}
+                            <li class="menu-list"><a href="{{ url('services') }}" class="menu-link">Services</a></li>
                             <li class="menu-list"> <a href="{{ url('contact-us') }}"
                                 class="menu-link">Contact Us</a></li>
-                            <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Login as Doctor</a></li>
+                           
                         
                         </ul>
 
@@ -88,6 +89,7 @@
                     @endif
                 </div>
             </div>
+            
         </nav>
 
           <!-- Mobile Menu Button -->

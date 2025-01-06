@@ -18,7 +18,10 @@
     </script>
     <link href="{{ asset('doc_on_call_logo_icon.png') }}" rel="shortcut icon" />
     <link href="../cdn.prod.website-files.com/65c992c37023d69385565acc/65c9dc398a42023d2fd60f43_webclip_256x256px.png" rel="apple-touch-icon" />
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+    href="../../assets-global.website-files.com/65c992c37023d69385565acc/css/doctor1.css"
+    rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -50,31 +53,12 @@
                                     </li>
                                     <li class="menu-list"><a href="{{ url('doctors') }}"
                                             class="menu-link">Doctors</a></li>
-                                    {{-- <li class="menu-list">
-                                        <a href="{{ url('appointment') }}"
-                                            class="menu-link">Appointment</a>
-                                        </li> --}}
+                                   
                                     
-                                            {{-- <li class="menu-list">
-                                                <form id="specializationFilterForm" method="GET" action="{{ route('user.doctors') }}" style="margin: 0; width: auto; display: inline-block;">
-                                                    <select class="menu-link" name="specialization_id" 
-                                                            id="specializationDropdown" 
-                                                            onchange="document.getElementById('specializationFilterForm').submit()"
-                                                            style="width: 130px; padding: 8px; border: none; background: transparent; font-size: 1rem; cursor: pointer; outline: none;">
-                                                        <option value="">Specialties</option>
-                                                        <option value="">All Specialties</option>
-                                                        @foreach ($specialties as $specialty)
-                                                            <option value="{{ $specialty->id }}" {{ request('specialization_id') == $specialty->id ? 'selected' : '' }}>
-                                                                {{ $specialty->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </form>
-                                            </li> --}}
+                                           
+                                            <li class="menu-list"><a href="{{ url('services') }}" class="menu-link">Services</a></li>
                                             <li class="menu-list"> <a href="{{ url('contact-us') }}"
                                                 class="menu-link">Contact Us</a></li>
-                                            <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Login as Doctor</a></li>
-                                        
                                         </ul>
 
 
@@ -124,69 +108,73 @@
             </div>
         </div>
     </section>
-    
+    @if(session('error'))
+    <div class="alert alert-danger" role="alert">
+        {{ session('error') }}
+    </div>
+@endif
 
-        <div class="main-wrapper">
-            <section class="authentication-section position-absolute d-flex">
-                <div class="w-layout-blockcontainer container position-absolute w-container">
-                    <div class="authentication-form-wrapper">
-                        <div class="authentication-content-wrap">
-                            <div class="authentication-title-wrap">
-                                
-                                <h1 class="authentication-title">Login to Your Account</h1>
-                                
-                            </div>
-                            <div class="validation-input-form-wrap">
-                                <div class="validation-input-form-block w-form">
-                                    <form id="wf-form-Password" name="wf-form-Password" data-name="Password"
-                                        method="POST" action="{{ route('user.login') }}"
-                                        class="validation-input-form" data-wf-page-id="65e6a7e60fb164351a89837e"
-                                        data-wf-element-id="2ab8b72a-0c0f-e390-2c77-2b3bb974f363">
-                                        @csrf
-                                        <label for="Email-Address" class="validation-input-field-level">Email
-                                            Address</label><input class="varidation-form-text-field w-input"
-                                            maxlength="256" data-name="Email Address" placeholder="Enter your email"
-                                            id="email" type="email" name="email" />
-                                            @error('email') <span class="text-danger" style="color: #e74c3c">{{ $message }}</span> @enderror
-                                            <label for="Password"
-                                            class="validation-input-field-level">Password</label><input
-                                            class="varidation-form-text-field w-input" maxlength="256" id="password"
-                                            type="password" name="password" data-name="Password"
-                                            placeholder="Password" required="" />
-                                            @error('password') <span class="text-danger" style="color: #e74c3c">{{ $message }}</span> @enderror
-                                        <div class="validation-form-condition-wrap"><a href="forgot-password.html"
-                                                class="forgot-link">Forget password?</a></div>
-                                        <div class="login-condition-block">
-                                            <div class="login-conditon-title">Don&#x27;t have an account? </div><a
-                                                href="{{ route('user.signup.form') }}" class="register-link">Register</a>
-                                        </div>
-                                        <div class="login-condition-block">
-                                            <div class="login-conditon-title">If you are a <span class="hero-title-span">doctor</span></div> <a href="{{route('doctor.login')}}" class="register-link">login here</a>
-                                        </div>
-                                        <input type="submit" data-wait="Please wait..."
-                                            class="button-primary text-center w-button" value="Log in" />
-                                    </form>
-                                    <div class="w-form-done">
-                                        <div>Thank you! Your submission has been received!</div>
-                                    </div>
-                                    <div class="w-form-fail">
-                                        <div>Oops! Something went wrong while submitting the form.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+<div class="auth-wrapper d-flex align-items-center justify-content-center py-5">
+    <div class="container">
+        <div class="row g-0 auth-card bg-white overflow-hidden" style="max-width: 1000px; margin: 0 auto;">
+            <!-- Left Column: Form Section -->
+            <div class="col-12 col-md-6 p-5">
+                <div class="text-center mb-5">
+                    <img src="{{ asset('doc-on-call-logo-modern.svg') }}" alt="Logo" class="img-fluid" style="max-width: 200px;">
                 </div>
-                <div class="authentication-banner">
-                    <img
-                        src="../cdn.prod.website-files.com/65c992c37023d69385565acc/65e6e12b4f03e2d8440da7a9_authentication%20-banner.jpg"
-                        loading="lazy"
-                        sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, (max-width: 1919px) 55vw, 950px"
-                        srcset="https://assets-global.website-files.com/65c992c37023d69385565acc/65e6e12b4f03e2d8440da7a9_authentication%20-banner-p-500.jpg 500w, https://assets-global.website-files.com/65c992c37023d69385565acc/65e6e12b4f03e2d8440da7a9_authentication%20-banner-p-800.jpg 800w, https://assets-global.website-files.com/65c992c37023d69385565acc/65e6e12b4f03e2d8440da7a9_authentication%20-banner.jpg 950w"
-                        alt="Authentication Banner" class="authentication-banner-image" />
+
+                <h2 class="text-center mb-4">Login to Your Account</h2>
+                
+                
+                <form method="POST" action="{{ route('user.login') }}">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="email" class="form-label">Email Address</label>
+                        <div class="input-group">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+                        </div>
+                        @error('email')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
-            </section>
+                    
+                    <div class="mb-4">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+                        </div>
+                        @error('password')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    
+                    <div class="d-flex justify-content-end mb-4">
+                        <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">Log In</button>
+                </form>
+
+                <div class="login-condition-block mt-4">
+                    <div class="login-conditon-title">Don't have an account? <a href="{{ route('user.signup.form') }}" class="register-link"><span class="hero-title-span">Register</span></a></div>
+                 
+                </div>
+                <div class="login-condition-block mt-2">
+                    <div class="login-conditon-title">Are you a <span class="hero-title-span">doctor</span>?    <a href="{{ route('doctor.login') }}" class="register-link">login here</a></div>
+                 
+                </div>
+                
+            </div>
+
+            <!-- Right Column: Image Section -->
+            <div class="col-12 col-md-6 auth-image d-none d-md-block">
+                <img src="../cdn.prod.website-files.com/65c992c37023d69385565acc/65e6e12b4f03e2d8440da7a9_authentication%20-banner.jpg" alt="Authentication Banner" class="img-fluid">
+            </div>
         </div>
+    </div>
+</div>
+
         <section class="footer-section">
             <div class="w-layout-blockcontainer container w-container">
                 <div class="footer-block-wrapper">
@@ -225,11 +213,12 @@
                             <div class="footer-link-wrapper"><a href="{{ url('home') }}"
                                     class="footer-link">Home</a><a href="{{ url('about') }}"
                                     class="footer-link">About</a>
-                                    {{-- <a href="{{ url('appointment') }}"
-                                    class="footer-link">Appointment</a> --}}
                                     <a href="{{ url('doctors') }}"
-                                    class="footer-link">Doctors</a><a href="{{ url('contact-us') }}"
-                                    aria-current="page" class="footer-link w--current">Contact</a></div>
+                                    class="footer-link">Doctors</a>
+                                    <a href="{{ url('services') }}"
+                                    class="footer-link">Services</a>
+                                    <a href="{{ url('contact-us') }}"
+                                    aria-current="page" class="footer-link w--current">Contact Us</a></div>
                         </div>
 
                         <div class="footer-block">

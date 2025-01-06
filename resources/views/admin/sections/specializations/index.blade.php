@@ -22,13 +22,13 @@
         <!-- Filter by Status -->
         <select id="statusFilter" class="form-select w-25">
             <option value="">All Status</option>
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
+            <option value=1>Active</option>
+            <option value=0>Inactive</option>
         </select>
     </div>
 
     <a href="{{ route('admin.specializations.create') }}" class="btn btn-primary mb-3">Add Specialization</a>
-
+    <div class="table-responsive">
     <table id="specializationsTable" class="table table-sm table-striped table-bordered">
         <thead class="table-dark text-center">
             <tr>
@@ -37,7 +37,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Status</th>
-                
+                <th>Status Value (Hidden)</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -62,7 +62,7 @@
                             <span class="badge bg-danger">Inactive</span>
                         @endif
                     </td>
-                    
+                    <td class="d-none">{{ $specializations->is_active }}</td>
                     <td>
                         <div class="d-flex justify-content-center">
                             <!-- Edit Button -->
@@ -88,6 +88,7 @@
             @endforelse
         </tbody>
     </table>
+    </div>
 </div>
 @endsection
 
@@ -103,30 +104,38 @@
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
 <script>
-    $(document).ready(function() {
-        // Initialize DataTable
-        var table = $('#specializationsTable').DataTable({
-            // Enable case-insensitive search
-            search: {
-                caseInsensitive: true
+   $(document).ready(function() {
+    // Initialize DataTable
+    var table = $('#specializationsTable').DataTable({
+        // Enable case-insensitive search
+        search: {
+            caseInsensitive: true
+        },
+        columnDefs: [
+            {
+                targets: 5, // Hidden column with the actual status value
+                visible: false // Hide the status column
             }
-        });
-
-        // Search functionality for the table
-        $('#searchSpecializations').on('keyup', function() {
-            table.search(this.value).draw();
-        });
-
-        // Filter by Status functionality
-        $('#statusFilter').on('change', function() {
-            var status = this.value;
-            if (status === '') {
-                table.column(3).search('').draw();
-            } else {
-                table.column(3).search('^' + status + '$', true, false).draw();
-            }
-        });
+        ]
     });
+
+    // Search functionality for the table
+    $('#searchSpecializations').on('keyup', function() {
+        table.search(this.value).draw();
+    });
+
+    // Filter by Status functionality
+    $('#statusFilter').on('change', function() {
+        var status = this.value;
+        if (status === '') {
+            table.column(5).search('').draw(); // Reset the filter
+        } else {
+            // Apply filter to the hidden status column (index 5)
+            table.column(5).search('^' + status + '$', true, false).draw();
+        }
+    });
+});
+
 
     function deleteSpecializations(specializationId) {
     // SweetAlert confirmation popup

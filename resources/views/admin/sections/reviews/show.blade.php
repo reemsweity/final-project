@@ -96,7 +96,7 @@ function approveReview(reviewId) {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, reject',
+        confirmButtonText: 'Yes, approve',
     }).then((result) => {
         if (result.isConfirmed) {
             // If user confirms, submit the hidden delete form
@@ -115,7 +115,7 @@ function rejectReview(reviewId) {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, approve',
+        confirmButtonText: 'Yes, reject',
     }).then((result) => {
         if (result.isConfirmed) {
             // If user confirms, submit the hidden delete form

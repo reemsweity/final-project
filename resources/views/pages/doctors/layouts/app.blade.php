@@ -76,7 +76,60 @@ type="text/javascript"></script>
         document.getElementById('userModal').style.display = 'none';
         document.getElementById('modalOverlay').style.display = 'none';
     }
+    document.addEventListener('DOMContentLoaded', function () {
+    // Add event listener to dynamically remove time slots
+    document.querySelectorAll('.remove_time_slot').forEach(function (button) {
+        button.addEventListener('click', function () {
+            const slot = this.closest('.available_time_slot');
+            slot.querySelector('.delete-flag').value = '1'; // Mark for deletion
+            slot.style.display = 'none'; // Hide from UI
+        });
+    });
+
+    // Add event listener to add new time slots
+    document.querySelector('.add_time_slot').addEventListener('click', function () {
+        const container = document.getElementById('available_time_container');
+        const index = container.children.length; // Get the current index
+        const newSlot = `
+            <div class="available_time_slot">
+                <input type="hidden" name="available_time[${index}][id]" value="">
+                <input type="hidden" name="available_time[${index}][delete]" value="0" class="delete-flag">
+                <select name="available_time[${index}][day_of_week]" class="form-control">
+                    <option value="Sunday">Sunday</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                </select>
+                <input type="time" name="available_time[${index}][start_time]" class="form-control mt-2">
+                <input type="time" name="available_time[${index}][end_time]" class="form-control mt-2">
+                <button type="button" class="btn btn-danger remove_time_slot mt-2">Remove</button>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', newSlot);
+    });
+});
+
+
+    function confirmDelete(availabilityId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + availabilityId).submit();
+            }
+        });
+    }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 <!-- Mirrored from medcare-template.webflow.io/doctors by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 10 Nov 2024 13:37:19 GMT -->
 

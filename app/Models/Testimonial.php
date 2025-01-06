@@ -14,7 +14,7 @@ class Testimonial extends Model
     use HasFactory;
 protected $table = 'testimonials';
     protected $fillable = [
-        'user_id', 'doctor_id', 'testimonial_text', 'rating', 'status', 'is_active'
+        'user_id', 'testimonial_text', 'rating',  'is_active'
     ];
 
     public function user()
@@ -22,9 +22,6 @@ protected $table = 'testimonials';
         return $this->belongsTo(User::class);
     }
 
-    public function doctor()
-    {
-        return $this->belongsTo(Doctor::class);
-    }
+   
 }
 

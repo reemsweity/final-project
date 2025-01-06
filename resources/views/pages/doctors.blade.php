@@ -81,10 +81,9 @@
                                                         </select>
                                                     </form>
                                                 </li> --}}
+                                                <li class="menu-list"><a href="{{ url('services') }}" class="menu-link">Services</a></li>
                                                 <li class="menu-list"> <a href="{{ url('contact-us') }}"
                                                     class="menu-link">Contact Us</a></li>
-                                                <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Login as Doctor</a></li>
-                                            
                                             </ul>
 
 
@@ -216,7 +215,7 @@
                                                     @if($doctor->profile_img)
                                                     <img src="{{ Storage::url($doctor->profile_img) }}" alt="Profile Image" class="dr-img">
                                                 @else
-                                                <img src="{{asset('doctor-default.png') }}" alt="Profile Image" class="dr-img" >
+                                                <img src="{{asset('default-profile.jpg') }}" alt="Profile Image" class="dr-img" >
                                                 @endif
                                                 </a>
                                     
@@ -316,11 +315,12 @@
                             <div class="footer-link-wrapper"><a href="{{ url('home') }}"
                                     class="footer-link">Home</a><a href="{{ url('about') }}"
                                     class="footer-link">About</a>
-                                    {{-- <a href="{{ url('appointment') }}"
-                                    class="footer-link">Appointment</a> --}}
                                     <a href="{{ url('doctors') }}"
-                                    class="footer-link">Doctors</a><a href="{{ url('contact-us') }}"
-                                    aria-current="page" class="footer-link w--current">Contact</a></div>
+                                    class="footer-link">Doctors</a>
+                                    <a href="{{ url('services') }}"
+                                    class="footer-link">Services</a>
+                                    <a href="{{ url('contact-us') }}"
+                                    aria-current="page" class="footer-link w--current">Contact Us</a></div>
                         </div>
 
                         <div class="footer-block">

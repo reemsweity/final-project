@@ -98,10 +98,9 @@
                                                         </select>
                                                     </form>
                                                 </li> --}}
+                                                <li class="menu-list"><a href="{{ url('services') }}" class="menu-link">Services</a></li>
                                                 <li class="menu-list"> <a href="{{ url('contact-us') }}"
                                                     class="menu-link">Contact Us</a></li>
-                                                <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Login as Doctor</a></li>
-                                            
                                             </ul>
 
 
@@ -192,10 +191,15 @@
             <section class="service-section section-gap-y-axis-140px">
                 <div class="w-layout-blockcontainer container w-container">
                     <div class="service-section-wrapper">
-                        <div class="section-title-wrap center">
+                    <div class="section-header-wrap d-flex">
+                        <div class="section-title-wrap">
                             <div class="section-sub-title">Services</div>
-                            <h2 class="section-title service">The Best Quality Service You Can Get</h2>
+                            <h2 class="section-title doctor">The Best Quality Service You Can Get</h2>
                         </div>
+                        <a href="{{ url('services') }}" class="button-outline w-button">View All Services</a>
+                    </div>
+                    
+                        
                         <div class="service-slider w-slider" data-delay="4000" data-animation="slide"
                             data-autoplay="false" data-easing="ease" style="opacity:1" data-hide-arrows="false"
                             data-disable-swipe="false" data-nav-spacing="3" data-duration="500"
@@ -278,8 +282,13 @@
                                             <div class="doctor-card-wrap">
                                                 <a href="{{ route('user.doctorsdetailes', $doctor->id) }}"
                                                     class="dr-image-link w-inline-block">
+                                                    @if($doctor->profile_img)
                                                     <img src="{{ Storage::url($doctor->profile_img) }}"
                                                         alt="Profile Image" class="dr-img">
+                                                        @else
+                                                        <img src="{{ asset('default-profile.jpg')}}"
+                                                        alt="Profile Image" class="dr-img">
+                                                        @endif
                                                 </a>
 
                                                 <div class="doctor-info-wrap">
@@ -350,10 +359,16 @@
                                         <div class="testimonial-slider-card">
                                             <!-- Patient Profile Image -->
                                             <div class="patient-profile-wrapper">
+                                                @if($testimonial->user->profile_img)
                                                 <img alt="Department Icon" loading="lazy"
                                                     src="{{ $testimonial->user->profile_img }}"
                                                     style="width: 100px; height: 100px; object-fit: cover; border-radius:50%" />
-                                            </div>
+                                                   @else
+                                                    <img alt="Department Icon" loading="lazy"
+                                                    src="{{ asset('default-profile.jpg')}}"
+                                                    style="width: 100px; height: 100px; object-fit: cover; border-radius:50%" />
+                                               @endif
+                                                </div>
                                             <!-- Testimonial Content -->
                                             <div class="testimonail-slider-content">
                                                 <div class="testimonail-patient-name">{{ $testimonial->user->name }}
@@ -441,8 +456,10 @@
                                   
                                     <a href="{{ url('doctors') }}"
                                     class="footer-link">Doctors</a>
+                                    <a href="{{ url('services') }}"
+                                    class="footer-link">Services</a>
                                     <a href="{{ url('contact-us') }}"
-                                    aria-current="page" class="footer-link w--current">Contact</a></div>
+                                    aria-current="page" class="footer-link w--current">Contact Us</a></div>
                         </div>
 
                         <div class="footer-block">

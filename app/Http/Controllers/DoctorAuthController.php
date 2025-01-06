@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Specialization;
+use App\Models\DoctorAvailability;
 class DoctorAuthController extends Controller
 {
     // Show the doctor signup form
@@ -88,9 +89,12 @@ class DoctorAuthController extends Controller
     public function editprofile()
     {
         $specializations = Specialization::all(); 
+       
+
         $specialties = Specialization::all();
         $doctor = Auth::guard('doctor')->user(); // Get the authenticated doctor
-        return view('pages.doctors.editprofiledoctor', compact('doctor','specialties','specializations')); // Adjust the view path
+        $availability = $doctor->availability;
+        return view('pages.doctors.editprofiledoctor', compact('doctor','specialties','specializations','availability')); // Adjust the view path
     }
     public function profile()
     {
@@ -100,43 +104,59 @@ class DoctorAuthController extends Controller
         return view('pages.doctors.profiledoctor', compact('doctor','specialties')); // Adjust the view path
     }
 
-    
+    public function deleteAvailability($id)
+{
+    // Find the availability by ID
+    $availability = DoctorAvailability::find($id);
+
+    // Check if the availability belongs to the currently logged-in doctor
+    if (!$availability || $availability->doctor_id != auth()->guard('doctor')->id()) {
+        return redirect()->back()->with('error', 'You are not authorized to delete this availability.');
+    }
+
+    // Delete the availability
+    $availability->delete();
+
+    // Redirect back with a success message
+    return redirect()->back()->with('success', 'Availability deleted successfully.');
+}
+
     // Update doctor profile
     public function update(Request $request, $id)
     {
+        
         // Validate input
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:doctors,email,' . $id,
-            'profile_img' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Profile image validation
+            'profile_img' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'about' => 'nullable|string',
             'work_experience' => 'nullable|string',
             'year_experience' => 'nullable|integer',
-            'facebook' => 'nullable|string',
-            'twitter' => 'nullable|string',
-            'available_time' => 'nullable|string',
             'specialization_id' => 'nullable|exists:specializations,id',
             'phone' => 'nullable|string',
             'password' => 'nullable|string|min:8|confirmed',
+            'available_time' => 'nullable|array',
+            'available_time.*.day_of_week' => 'nullable|string',
+            'available_time.*.start_time' => 'nullable|date_format:H:i',
+            'available_time.*.end_time' => 'nullable|date_format:H:i',
+            'available_time.*.delete' => 'nullable|in:0,1',
         ]);
-
+    
         // Find the doctor by ID
         $doctor = Doctor::findOrFail($id);
-
-        // Handle the image upload
+    
+        // Handle Profile Image
         if ($request->hasFile('profile_img')) {
-            // Delete the old image if it exists
             if ($doctor->profile_img) {
                 Storage::disk('public')->delete('profile_images/' . $doctor->profile_img);
             }
-
-            // Store the new image
             $imagePath = $request->file('profile_img')->store('profile_images', 'public');
         } else {
-            $imagePath = $doctor->profile_img; // Retain the old image if no new file is uploaded
+            $imagePath = $doctor->profile_img;
         }
-
-        // Update the doctor record
+    
+        // Update doctor info
         $doctor->update([
             'name' => $validated['name'],
             'email' => $validated['email'],
@@ -144,20 +164,46 @@ class DoctorAuthController extends Controller
             'about' => $validated['about'],
             'work_experience' => $validated['work_experience'],
             'year_experience' => $validated['year_experience'],
-           
-            'available_time' => $validated['available_time'],
             'specialization_id' => $validated['specialization_id'],
             'phone' => $validated['phone'],
         ]);
-        if (!empty($validated['password'])) {
-            $validated['password'] = Hash::make($validated['password']);
-        } else {
-            // Remove password from validated data if it's not being updated
-            unset($validated['password']);
+    
+        // Update available times
+        if (isset($validated['available_time'])) {
+            foreach ($validated['available_time'] as $timeSlot) {
+                if (isset($timeSlot['delete']) && $timeSlot['delete'] == '1' && isset($timeSlot['id'])) {
+                    // Delete existing availability if marked
+                    $doctor->availability()->where('id', $timeSlot['id'])->delete();
+                } elseif (!empty($timeSlot['day_of_week']) && !empty($timeSlot['start_time']) && !empty($timeSlot['end_time'])) {
+                    if (isset($timeSlot['id']) && !empty($timeSlot['id'])) {
+                        // Update existing availability
+                        $doctor->availability()->where('id', $timeSlot['id'])->update([
+                            'day_of_week' => $timeSlot['day_of_week'],
+                            'start_time' => $timeSlot['start_time'],
+                            'end_time' => $timeSlot['end_time'],
+                        ]);
+                    } else {
+                        // Add new availability
+                        $doctor->availability()->create([
+                            'day_of_week' => $timeSlot['day_of_week'],
+                            'start_time' => $timeSlot['start_time'],
+                            'end_time' => $timeSlot['end_time'],
+                        ]);
+                    }
+                }
+            }
         }
-
+    
+        // Handle password change if present
+        if (!empty($validated['password'])) {
+            $doctor->update(['password' => Hash::make($validated['password'])]);
+        }
+    
         return redirect()->route('doctor.pages.doctors.profile')->with('success', 'Doctor updated successfully!');
     }
+    
+
+
 
 
 

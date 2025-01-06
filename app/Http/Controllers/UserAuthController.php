@@ -24,6 +24,7 @@ class UserAuthController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
+            'phone' => 'required|string|max:20',
             'password' => [
                 'required',
                 'string',
@@ -45,6 +46,7 @@ class UserAuthController extends Controller
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
+            'phone'=>$validated['phone'],
             'password' => Hash::make($validated['password']),
         ]);
     
@@ -69,6 +71,11 @@ class UserAuthController extends Controller
     {
         $specialties = Specialization::all();
         return view('pages.about-us',compact('specialties'));
+    }
+    public function showServices()
+    {
+        $specializations = Specialization::all();
+        return view('pages.service',compact('specializations'));
     }
     // Handle user login
     public function login(Request $request)

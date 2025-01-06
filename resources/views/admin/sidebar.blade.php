@@ -2,7 +2,7 @@
     <!-- Sidebar - Brand -->
    
         <div class="sidebar-brand-icon ">
-            <a href="{{ url('home') }}" class="navbar-logo w-nav-brand">
+            <a href="{{ route('admin.reports') }}" class="navbar-logo w-nav-brand">
                 <img src="{{ asset('doc-on-call-logo-modern.svg') }}" loading="lazy" alt="Logo Image" class="logo" />
             </a>
             

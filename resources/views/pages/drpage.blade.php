@@ -114,10 +114,9 @@
                                                         </select>
                                                     </form>
                                                 </li> --}}
+                                                <li class="menu-list"><a href="{{ url('services') }}" class="menu-link">Services</a></li>
                                                 <li class="menu-list"> <a href="{{ url('contact-us') }}"
                                                     class="menu-link">Contact Us</a></li>
-                                                <li class="menu-list"><a href="{{ url('doctor/profile') }}" class="menu-link">Login as Doctor</a></li>
-                                            
                                             </ul>
 
 
@@ -207,8 +206,13 @@
                             <div class="doctor-details-wrapper">
                                 <div class="doctor-profile-block">
                                     <div class="doctor-thumbnail-image-wrap">
+                                        @if($doctor->profile_img)
                                         <img src="{{ asset('storage/' . $doctor->profile_img) }}" alt="Doctor Image"
                                             class="doctor-thumbnail-image" />
+                                            @else
+                                            <img src="{{ asset('default-profile.jpg')}}" alt="Doctor Image"
+                                            class="dr-img" />
+                                            @endif
                                     </div>
                                     <div class="doctor-details-info">
                                         <div class="doctor-thumbnail-name-wrap">
@@ -230,15 +234,7 @@
                                             <div class="quality-title">Positive review</div>
                                         </div>
                                     </div>
-                                    <div class="doctor-thumbnail-border"></div>
-                                    <div class="available-time-block">
-                                        <div class="available-time-title">Available Times</div>
-                                        <div class="doctor-avaiable-time-chart w-richtext">
-                                            @foreach($doctor->availability as $availability)
-                                                <p><strong>{{ $availability->day_of_week }}:</strong> {{ $availability->start_time }} - {{ $availability->end_time }}</p>
-                                            @endforeach
-                                        </div>
-                                    </div>
+                                    
                                     
                                     <div class="doctor-thumbnail-border"></div>
                                     <div class="doctor-contact-block">
@@ -448,11 +444,12 @@
                                     <div class="footer-link-wrapper"><a href="{{ url('home') }}"
                                             class="footer-link">Home</a><a href="{{ url('about') }}"
                                             class="footer-link">About</a>
-                                            {{-- <a href="{{ url('appointment') }}"
-                                            class="footer-link">Appointment</a> --}}
                                             <a href="{{ url('doctors') }}"
-                                            class="footer-link">Doctors</a><a href="{{ url('contact-us') }}"
-                                            aria-current="page" class="footer-link w--current">Contact</a></div>
+                                            class="footer-link">Doctors</a>
+                                            <a href="{{ url('services') }}"
+                                    class="footer-link">Services</a>
+                                    <a href="{{ url('contact-us') }}"
+                                    aria-current="page" class="footer-link w--current">Contact Us</a></div>
                                 </div>
 
                                 <div class="footer-block">
