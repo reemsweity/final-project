@@ -37,13 +37,14 @@ class AdminDoctorController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'profile_img' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Profile image validation
             'about' => 'nullable|string',
-             'rating' => 'nullable|integer|min:1|max:5',
+             'rating' => 'required|integer|min:1|max:5',
             'work_experience' => 'nullable|string',
             'year_experience' => 'nullable|integer',
             'available_time' => 'nullable|string',
             'specialization_id' => 'required|exists:specializations,id',
             'phone' => 'required|string',
             'is_active' => 'required|boolean',
+            'consultation_price'=>'required|numeric|min:0', 
 
         ]);
 
@@ -65,6 +66,7 @@ class AdminDoctorController extends Controller
             'phone' => $validated['phone'],
             'rating' => $validated['rating'],
             'is_active' => $validated['is_active'],
+            'consultation_price'=>$validated['consultation_price'],
         ]);
         
 
@@ -98,6 +100,7 @@ class AdminDoctorController extends Controller
             'year_experience' => 'nullable|integer',
             'phone' => 'nullable|string',
             'is_active' => 'nullable|boolean',
+            'consultation_price'=>'nullable|numeric|min:0', 
         ]);
 
         // Find the doctor by ID
@@ -112,6 +115,7 @@ class AdminDoctorController extends Controller
             'work_experience' => $validated['work_experience'],
             'year_experience' => $validated['year_experience'],
             'phone' => $validated['phone'],
+            'consultation_price'=>$validated['consultation_price'],
             'is_active' => isset($validated['is_active']) ? $validated['is_active'] : $doctor->is_active,
         ]);
 
@@ -148,7 +152,7 @@ class AdminDoctorController extends Controller
 
     $doctors = $query->paginate(8); // Paginate doctors
 
-    $specialties = Specialization::all(); // Retrieve all specializations
+    $specialties = Specialization::where('is_active', 1)->get();
 
     return view('pages.doctors', compact('doctors', 'specialties'));
 }
@@ -156,15 +160,26 @@ class AdminDoctorController extends Controller
     
 
     
-    public function showAllDoctors($id)
-    {
-        // Retrieve doctor data based on ID
-        $doctor = Doctor::findOrFail($id);
-        $specialties =Specialization::all();
-        $reviews = $doctor->reviews()->orderBy('created_at', 'DESC')->paginate((8));
-        // Return the view with doctor data
-        return view('pages.drpage', compact('doctor','reviews','specialties'));
-    }
+public function showAllDoctors($id)
+{
+    // Retrieve doctor data based on ID and ensure the doctor is active
+    $doctor = Doctor::where('id', $id)
+                    ->where('is_active', 1)
+                    ->firstOrFail();
+
+    // Retrieve all active specializations
+    $specialties = Specialization::where('is_active', 1)->get();
+
+    // Retrieve only approved reviews for the doctor
+    $reviews = $doctor->reviews()
+                      ->where('status', 'approved') // Only approved reviews
+                      ->orderBy('created_at', 'DESC')
+                      ->paginate(8);
+
+    // Return the view with doctor data, reviews, and specialties
+    return view('pages.drpage', compact('doctor', 'reviews', 'specialties'));
+}
+
  
     public function showSpecialization()
 {

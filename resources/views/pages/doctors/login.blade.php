@@ -173,9 +173,6 @@
                             @enderror
                         </div>
                         
-                        <div class="d-flex justify-content-end mb-4">
-                            <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
-                        </div>
                         
                         <button type="submit" class="btn btn-primary w-100">
                             Log In

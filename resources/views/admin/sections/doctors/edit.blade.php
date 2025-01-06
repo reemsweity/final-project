@@ -42,7 +42,11 @@
             <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone', $doctor->phone) }}">
             @error('phone') <div class="alert alert-danger">{{ $message }}</div> @enderror
         </div>
-
+        <div class="form-group">
+            <label for="consultation_price">Consultation Price</label>
+            <input type="number" name="consultation_price" id="consultation_price" class="form-control" value="{{ old('consultation_price', $doctor->consultation_price) }}" required>
+            @error('consultation_price') <div class="alert alert-danger">{{ $message }}</div> @enderror
+        </div>
         <div class="row mb-3">
             <label for="is_active" class="col-sm-2 col-form-label">Is Active</label>
             <div class="col-sm-10">

@@ -16,6 +16,10 @@
                     <h5 class="font-weight-bold">Specialty:</h5>
                     <p class="text-muted">{{ $appointment->doctor->specialization->name }}</p>
                 </div>
+                <div class="mb-4">
+                    <h5 class="font-weight-bold">Consultation Price:</h5>
+                    <p class="text-muted">{{ $appointment->doctor->consultation_price }}</p>
+                </div>
 
                 <div class="mb-4">
                     <h5 class="font-weight-bold">Date and Time:</h5>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 
 class AdminPaymentController extends Controller
@@ -25,15 +26,29 @@ class AdminPaymentController extends Controller
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'appointment_id' => 'required|exists:appointments,id',
-            'amount' => 'required|numeric|min:0',
             'status' => 'required|string',
             'payment_method' => 'required|string',
         ]);
-
-        Payment::create($request->all());
-
+    
+        // Get the associated appointment and doctor
+        $appointment = Appointment::findOrFail($request->appointment_id);
+        $doctor = $appointment->doctor; // Assuming the Appointment model has a 'doctor' relationship
+    
+        // Set the amount to the consultation price of the doctor
+        $amount = $doctor->consultation_price;
+    
+        // Create the payment with the calculated amount
+        Payment::create([
+            'user_id' => $request->user_id,
+            'appointment_id' => $request->appointment_id,
+            'amount' => $amount,
+            'status' => $request->status,
+            'payment_method' => $request->payment_method,
+        ]);
+    
         return redirect()->route('admin.payments')->with('success', 'Payment added successfully.');
     }
+    
 
     public function edit($id)
     {

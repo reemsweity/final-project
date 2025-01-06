@@ -246,4 +246,3 @@ Route::delete('/doctor/availability/{id}', [DoctorAuthController::class, 'delete
 
 Route::get('appointments/payment/{appointmentId}', [AppointmentController::class, 'paymentPage'])->name('appointments.payment');
 Route::post('appointments/payment/{appointmentId}', [AppointmentController::class, 'processPayment'])->name('appointments.processPayment');
-Route::get('appointments/confirmation', [AppointmentController::class, 'confirmation'])->name('appointments.confirmation');

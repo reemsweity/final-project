@@ -77,12 +77,17 @@ class DoctorAuthController extends Controller
     // Doctor logout
     public function logout(Request $request)
     {
+        // Logout only the doctor guard
         Auth::guard('doctor')->logout();
-        $request->session()->invalidate();
+    
+        // Invalidate the doctor guard's session
+        $request->session()->forget('doctor_session'); // Clear session for doctor
+    
         $request->session()->regenerateToken();
-
+    
         return redirect('home');
     }
+    
     
 
     // Show doctor profile
@@ -141,6 +146,7 @@ class DoctorAuthController extends Controller
             'available_time.*.start_time' => 'nullable|date_format:H:i',
             'available_time.*.end_time' => 'nullable|date_format:H:i',
             'available_time.*.delete' => 'nullable|in:0,1',
+            'consultation_price'=>'nullable|numeric|min:0', 
         ]);
     
         // Find the doctor by ID
@@ -166,6 +172,7 @@ class DoctorAuthController extends Controller
             'year_experience' => $validated['year_experience'],
             'specialization_id' => $validated['specialization_id'],
             'phone' => $validated['phone'],
+            'consultation_price'=>$validated['consultation_price'],
         ]);
     
         // Update available times

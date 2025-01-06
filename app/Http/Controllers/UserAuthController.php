@@ -74,7 +74,7 @@ class UserAuthController extends Controller
     }
     public function showServices()
     {
-        $specializations = Specialization::all();
+        $specializations = Specialization::where('is_active',1)->get();
         return view('pages.service',compact('specializations'));
     }
     // Handle user login
@@ -85,30 +85,46 @@ class UserAuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
+    
         // Attempt to authenticate the user
         if (Auth::attempt($credentials)) {
+            // Check if the authenticated user is active
+            $user = Auth::user();
+    
+            if ($user->is_active == 0) {
+                // Logout the inactive user
+                Auth::logout();
+    
+                return back()->withErrors([
+                    'email' => 'Your account is inactive. Please contact support.',
+                ]);
+            }
+    
+            // Regenerate session to prevent session fixation
             $request->session()->regenerate();
-
-            return redirect()->route('home.specializations')->with('success', 'login successfully!');
+    
+            // Redirect to the home page
+            return redirect()->route('home.specializations')->with('success', 'Login successfully!');
         }
-
+    
         // Redirect back with error if authentication fails
         return back()->withErrors([
             'email' => 'The email address you entered is incorrect.',
             'password' => 'The password you entered is incorrect.',
         ]);
     }
+    
 
     // User logout
   public function logout(Request $request)
 {
     Auth::logout(); // Automatically uses the web guard for user authentication
-    $request->session()->invalidate(); // Invalidate the session
+    $request->session()->forget('user_session');
     $request->session()->regenerateToken(); // Regenerate the CSRF token
 
     return redirect('home'); // Redirect to the login page
 }
+  
 
 public function profile(Request $request)
 {
@@ -127,21 +143,7 @@ public function profile(Request $request)
                                 $specialties = Specialization::all();
     return view('profile', compact('user', 'appointments','specialties'));
 }
-public function cancelAppointment($id)
-{
-    $user = Auth::user(); // Get the authenticated user
-    $appointment = Appointment::where('id', $id)->where('user_id', $user->id)->first(); // Ensure the appointment belongs to the logged-in user
 
-    if (!$appointment) {
-        return redirect()->route('profile')->with('error', 'Appointment not found or does not belong to you.');
-    }
-
-    // Update the appointment status to 'cancelled'
-    $appointment->status = 'canceled';
-    $appointment->save();
-
-    return redirect()->route('profile')->with('success', 'Appointment cancelled successfully.');
-}
 
 
 public function showEditForm()

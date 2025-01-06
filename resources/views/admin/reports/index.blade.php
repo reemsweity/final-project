@@ -7,31 +7,15 @@
     <!-- Header Section -->
     <div class="row align-items-center mb-4">
         <div class="col">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Reports</li>
-                </ol>
-            </nav>
             <h2 class="mt-2">Analytics Dashboard</h2>
-        </div>
-        <div class="col-auto">
-            <div class="dropdown">
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Export
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="exportDropdown">
-                    <li><a class="dropdown-item" href="{{ route('admin.reports.export') }}?type=pdf">Export as PDF</a></li>
-                    <li><a class="dropdown-item" href="{{ route('admin.reports.export') }}?type=excel">Export as Excel</a></li>
-                </ul>
-            </div>
         </div>
     </div>
 
     <!-- Main Stats -->
     <div class="row g-3 mb-4">
+        <!-- Total Users -->
         <div class="col-sm-6 col-xl-3">
-            <div class="card h-100 border-0 rounded-3">
+            <div class="card h-100 border-0 rounded-3 shadow-sm">
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
@@ -39,20 +23,16 @@
                             <h3 class="mb-0">{{ number_format($data['users']) }}</h3>
                         </div>
                         <div class="col-auto">
-                            <div class="p-3 bg-primary bg-opacity-10 rounded-circle">
-                                <i class="bi bi-people fs-4 text-primary"></i>
-                            </div>
+                            <i class="fas fa-users fs-4 text-primary"></i>
                         </div>
-                    </div>
-                    <div class="progress mt-3" style="height: 4px;">
-                        <div class="progress-bar bg-primary" style="width: 100%"></div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Active Users -->
         <div class="col-sm-6 col-xl-3">
-            <div class="card h-100 border-0 rounded-3">
+            <div class="card h-100 border-0 rounded-3 shadow-sm">
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
@@ -60,20 +40,16 @@
                             <h3 class="mb-0">{{ number_format($data['activeUsers']) }}</h3>
                         </div>
                         <div class="col-auto">
-                            <div class="p-3 bg-success bg-opacity-10 rounded-circle">
-                                <i class="bi bi-person-check fs-4 text-success"></i>
-                            </div>
+                            <i class="fas fa-user-check fs-4 text-success"></i>
                         </div>
-                    </div>
-                    <div class="progress mt-3" style="height: 4px;">
-                        <div class="progress-bar bg-success" style="width: 75%"></div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Inactive Users -->
         <div class="col-sm-6 col-xl-3">
-            <div class="card h-100 border-0 rounded-3">
+            <div class="card h-100 border-0 rounded-3 shadow-sm">
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
@@ -81,20 +57,16 @@
                             <h3 class="mb-0">{{ number_format($data['inactiveUsers']) }}</h3>
                         </div>
                         <div class="col-auto">
-                            <div class="p-3 bg-warning bg-opacity-10 rounded-circle">
-                                <i class="bi bi-person-dash fs-4 text-warning"></i>
-                            </div>
+                            <i class="fas fa-user-times fs-4 text-warning"></i>
                         </div>
-                    </div>
-                    <div class="progress mt-3" style="height: 4px;">
-                        <div class="progress-bar bg-warning" style="width: 25%"></div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Total Doctors -->
         <div class="col-sm-6 col-xl-3">
-            <div class="card h-100 border-0 rounded-3">
+            <div class="card h-100 border-0 rounded-3 shadow-sm">
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
@@ -102,41 +74,99 @@
                             <h3 class="mb-0">{{ number_format($data['doctors']) }}</h3>
                         </div>
                         <div class="col-auto">
-                            <div class="p-3 bg-info bg-opacity-10 rounded-circle">
-                                <i class="bi bi-heart-pulse fs-4 text-info"></i>
-                            </div>
+                            <i class="fas fa-user-md fs-4 text-info"></i>
                         </div>
                     </div>
-                    <div class="progress mt-3" style="height: 4px;">
-                        <div class="progress-bar bg-info" style="width: 50%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Appointments Analytics -->
+<div class="row g-3 mb-4">
+    <!-- Total Appointments -->
+    <div class="col-sm-6 col-xl-3">
+        <div class="card h-100 border-0 rounded-3 shadow-sm">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <span class="d-block fs-sm fw-normal text-muted text-uppercase">Total Appointments</span>
+                        <h3 class="mb-0">{{ number_format($data['appointments']) }}</h3>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar-check fs-4 text-success"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Upcoming Appointments -->
+    <div class="col-sm-6 col-xl-3">
+        <div class="card h-100 border-0 rounded-3 shadow-sm">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <span class="d-block fs-sm fw-normal text-muted text-uppercase">Upcoming Appointments</span>
+                        <h3 class="mb-0">{{ number_format($data['upcomingAppointments']) }}</h3>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar-plus fs-4 text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Completed Appointments -->
+    <div class="col-sm-6 col-xl-3">
+        <div class="card h-100 border-0 rounded-3 shadow-sm">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <span class="d-block fs-sm fw-normal text-muted text-uppercase">Completed Appointments</span>
+                        <h3 class="mb-0">{{ number_format($data['completedAppointments']) }}</h3>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar-check fs-4 text-info"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Missed Appointments -->
+    <div class="col-sm-6 col-xl-3">
+        <div class="card h-100 border-0 rounded-3 shadow-sm">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <span class="d-block fs-sm fw-normal text-muted text-uppercase">Cancelled Appointments</span>
+                        <h3 class="mb-0">{{ number_format($data['cancelledAppointments']) }}</h3>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar-times fs-4 text-danger"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <!-- Secondary Stats -->
     <div class="row g-3 mb-4">
+        <!-- Messages & Testimonials -->
         <div class="col-md-6">
-            <div class="card border-0 rounded-3">
+            <div class="card border-0 rounded-3 shadow-sm">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <h5 class="card-title mb-0">Messages & Feedback</h5>
-                        <div class="ms-auto">
-                            <select class="form-select form-select-sm">
-                                <option>Last 7 days</option>
-                                <option>Last 30 days</option>
-                                <option>Last 90 days</option>
-                            </select>
-                        </div>
                     </div>
                     <div class="row g-3">
                         <div class="col-6">
                             <div class="p-3 rounded bg-light">
                                 <div class="d-flex align-items-center">
-                                    <i class="bi bi-chat-square-text text-primary fs-4 me-3"></i>
+                                    
                                     <div>
-                                        <div class="small text-muted">Contact Messages</div>
+                                        <div class="small text-muted"><i class="fas fa-comment-dots text-primary fs-4 me-3"></i>Contact Messages</div>
                                         <div class="fs-5 fw-semibold">{{ number_format($data['contactMessages']) }}</div>
                                     </div>
                                 </div>
@@ -145,9 +175,9 @@
                         <div class="col-6">
                             <div class="p-3 rounded bg-light">
                                 <div class="d-flex align-items-center">
-                                    <i class="bi bi-star text-warning fs-4 me-3"></i>
+                                    
                                     <div>
-                                        <div class="small text-muted">Testimonials</div>
+                                        <div class="small text-muted"><i class="fas fa-star text-warning fs-4 me-3"></i>Testimonials</div>
                                         <div class="fs-5 fw-semibold">{{ number_format($data['testimonials']) }}</div>
                                     </div>
                                 </div>
@@ -158,42 +188,44 @@
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="card border-0 rounded-3">
+        <!-- Total Payments -->
+        <div class="col-sm-6 col-xl-3">
+            <div class="card h-100 border-0 rounded-3 shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title mb-3">Best Performing Doctor</h5>
-                    <div class="text-center py-4">
-                        <div class="d-inline-block p-3 rounded-circle bg-success bg-opacity-10 mb-3">
-                            <i class="bi bi-award fs-1 text-success"></i>
+                    <div class="row">
+                        <div class="col">
+                            <span class="d-block fs-sm fw-normal text-muted text-uppercase">Total Payments</span>
+                            <h3 class="mb-0">{{ number_format($data['totalPayments'], 2) }}</h3>
                         </div>
-                        <h4 class="mb-1">{{ $data['bestDoctor']['name'] }}</h4>
-                        <div class="text-muted">Top Performance Rating</div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fs-4 text-danger"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Doctor Rankings -->
-    <div class="row g-3">
+    <!-- Top Doctors Section -->
+    <div class="row mb-4">
         <div class="col-md-6">
-            <div class="card border-0 rounded-3">
+            <div class="card border-0 rounded-3 shadow-sm">
                 <div class="card-header bg-transparent border-0">
-                    <h5 class="card-title mb-0">Top Performing Doctors</h5>
+                    <h5 class="card-title mb-0"><i class="fas fa-medal text-warning"></i>Top Doctors</h5>
                 </div>
                 <div class="card-body">
                     <div class="list-group list-group-flush">
-                        @foreach ($data['topDoctors'] as $index => $doctor)
+                        @foreach ($data['topDoctors'] as $doctor)
                             <div class="list-group-item border-0 px-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="me-3">
-                                        <span class="badge rounded-pill bg-success">#{!! $index + 1 !!}</span>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-0">{{ $doctor->name }}</h6>
+                                        <small class="text-muted">Reviews: {{ $doctor->reviews_count }}</small>
                                     </div>
                                     <div>
-                                        <h6 class="mb-0">{{ $doctor['name'] }}</h6>
-                                    </div>
-                                    <div class="ms-auto">
-                                        <i class="bi bi-arrow-up-circle text-success"></i>
+                                        <a href="{{ route('admin.doctors.show', $doctor->id) }}">
+                                            <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -202,27 +234,27 @@
                 </div>
             </div>
         </div>
+        
 
+        <!-- Doctors Needing Support -->
         <div class="col-md-6">
-            <div class="card border-0 rounded-3">
+            <div class="card border-0 rounded-3 shadow-sm">
                 <div class="card-header bg-transparent border-0">
-                    <h5 class="card-title mb-0">Doctors Needing Support</h5>
+                    <h5 class="card-title mb-0">   <i class="fas fa-exclamation-circle text-warning"></i>Doctors Needing Support</h5>
                 </div>
                 <div class="card-body">
                     <div class="list-group list-group-flush">
-                        @foreach ($data['leastConsultedDoctors'] as $doctor)
+                        @foreach ($data['leastReviewedDoctors'] as $doctor)
                             <div class="list-group-item border-0 px-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="me-3">
-                                        <span class="badge rounded-pill bg-warning text-dark">
-                                            <i class="bi bi-exclamation-circle"></i>
-                                        </span>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-0">{{ $doctor->name }}</h6>
+                                        <small class="text-muted">Reviews: {{ $doctor->reviews_count }}</small>
                                     </div>
                                     <div>
-                                        <h6 class="mb-0">{{ $doctor['name'] }}</h6>
-                                    </div>
-                                    <div class="ms-auto">
-                                        <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                        <a href="{{ route('admin.doctors.show', $doctor->id) }}">
+                                            <button class="btn btn-sm btn-outline-secondary">View Details</button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -231,6 +263,10 @@
                 </div>
             </div>
         </div>
+        
     </div>
+
+    
+
 </div>
 @endsection

@@ -51,7 +51,10 @@
                 <h2 class="text-success border-bottom pb-2 mb-3" style="font-size: 1.3rem;">Work Experience</h2>
                 <p class="text-secondary">{{ $doctor->work_experience ?? 'No information available' }}</p>
             </section>
-
+            <section>
+                <h2 class="text-success border-bottom pb-2 mb-3" style="font-size: 1.3rem;">Consultation Price</h2>
+                <p class="text-secondary">{{ $doctor->consultation_price ? '$' . number_format($doctor->consultation_price, 2) : 'No consultation price provided' }}</p>
+            </section>
             <div class="row gy-4">
                 <div class="col-12 col-md-6">
                     <section>

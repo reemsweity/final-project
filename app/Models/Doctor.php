@@ -12,7 +12,7 @@ class Doctor extends Authenticatable
     protected $fillable = [
         'about', 'work_experience', 'year_experience', 'facebook', 'twitter', 'name',
         'available_time', 'profile_img', 'specialization_id','phone','specialization',
-        'email', 'password', 'rating', 'phone', 'is_admin_added', 'is_active',
+        'email', 'password', 'rating', 'phone', 'is_admin_added', 'is_active','consultation_price'
     ];
 
     public function specialization()

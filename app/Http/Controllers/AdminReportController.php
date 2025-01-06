@@ -22,34 +22,34 @@ class AdminReportController extends Controller
             'users' => User::count(),
             'activeUsers' => User::where('is_active', 1)->count(),
             'inactiveUsers' => User::where('is_active', 0)->count(),
-            'reviews'=>Review::count(),
+            'reviews' => Review::count(),
             'doctors' => Doctor::count(),
             'testimonials' => Testimonial::count(),
             'contactMessages' => Contact_msg::count(),
-            'payments' => Payment::sum('amount'),
+            'totalPayments' => Payment::sum('amount'),
             'specializations' => Specialization::count(),
             'consultations' => Consultation::count(),
             'appointments' => Appointment::count(),
+            'upcomingAppointments' => Appointment::where('status', 'pending')->count(),
+            'completedAppointments' => Appointment::where('status', 'completed')->count(),
+            'cancelledAppointments' => Appointment::where('status', 'cancelled')->count(),
         ];
+       
 
-        // Fetch detailed reports
-        $data['bestDoctor'] = Doctor::withCount('reviews')
-            ->orderBy('reviews_count', 'desc')
-            ->first(['id', 'name', 'reviews_count', 'earnings']);
+        $data['topDoctors'] = Doctor::withCount('reviews')
+        ->orderBy('reviews_count', 'desc')
+        ->take(3) // Change the number to display more or fewer top doctors
+        ->get(['id', 'name', 'reviews_count']);
 
-        $data['topDoctors'] = Doctor::withCount('consultations')
-            ->orderBy('consultations_count', 'desc')
-            ->take(3)
-            ->get(['id', 'name', 'consultations_count', 'earnings']);
-
-        $data['leastConsultedDoctors'] = Doctor::withCount('consultations')
-            ->orderBy('consultations_count', 'asc')
-            ->take(3)
-            ->get(['id', 'name', 'consultations_count']);
-
+        // Fetch doctors needing support based on the least number of reviews
+        $data['leastReviewedDoctors'] = Doctor::withCount('reviews')
+            ->orderBy('reviews_count', 'asc')
+            ->take(3) // You can adjust the number as needed
+            ->get(['id', 'name', 'reviews_count']);
+    
         return view('admin.reports.index', compact('data'));
     }
-
+    
     public function export()
     {
         // Export data to CSV or Excel
@@ -62,6 +62,7 @@ class AdminReportController extends Controller
             'specializations' => Specialization::all(),
             'consultations' => Consultation::all(),
             'appointments' => Appointment::all(),
+            
         ];
 
         // Implement CSV or Excel export logic here

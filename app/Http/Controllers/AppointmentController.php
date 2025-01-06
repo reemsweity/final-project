@@ -93,15 +93,13 @@ public function paymentPage($appointmentId)
 public function processPayment(Request $request, $appointmentId)
 {
     $appointment = Appointment::findOrFail($appointmentId);
-
-    // Payment processing logic here (for now it's simulated)
-    // You can replace this with your real payment gateway logic like Stripe or PayPal.
-
+    $doctor = $appointment->doctor;
+    $amount = $doctor->consultation_price;
     // Simulate payment success (replace this with real payment logic)
     $payment = Payment::create([
         'user_id' => $appointment->user_id,
         'appointment_id' => $appointment->id,
-        'amount' => 100, // example amount
+        'amount' => $amount , // example amount
         'status' => 'completed', // Set payment status as completed
         'payment_method' => $request->payment_method, // 'credit_card' or 'paypal'
         'is_active' => 1,

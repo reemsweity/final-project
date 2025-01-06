@@ -56,7 +56,7 @@
 
         <div class="form-group">
             <label for="rating">Rating</label>
-            <input type="number" name="rating" id="rating" class="form-control" min="1" max="5" value="{{ old('rating') }}">
+            <input type="number" name="rating" id="rating" class="form-control" min="1" max="5" value="{{ old('rating') }}" required>
             @error('rating') <div class="text text-danger">{{ $message }}</div> @enderror
         </div>
       
@@ -73,6 +73,14 @@
             </select>
             @error('specialization_id') <div class="text text-danger">{{ $message }}</div> @enderror
         </div>
+        <div class="form-group">
+            <label for="consultation_price">Consultation Price</label>
+            <input type="number" name="consultation_price" id="consultation_price" class="form-control" value="{{ old('consultation_price') }}" step="0.01" required>
+            @error('consultation_price') 
+                <div class="text text-danger">{{ $message }}</div> 
+            @enderror
+        </div>
+        
 
         <div class="form-group">
             <label for="phone">Phone</label>

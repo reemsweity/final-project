@@ -32,7 +32,8 @@
     <label for="doctor_specialty">Doctor's Specialty</label>
     <input type="text" name="doctor_specialty" id="doctor_specialty" value="{{ $doctor->specialization->name }}" readonly>
 
-    <!-- Name -->
+    <!-- Name --><label for="consultation_price">Consultation Price</label>
+    <input type="text" name="consultation_price" id="consultation_price" value="{{ $doctor->consultation_price }}" readonly>
     <label for="name">Name</label>
     <input type="text" name="name" id="name" value="{{ Auth::user()->name }}" >
 
@@ -42,7 +43,7 @@
 
     <!-- Phone Number -->
     <label for="phone_number">Phone Number</label>
-    <input type="text" name="phone_number" id="phone_number" value="{{ Auth::user()->phone_number ?? '' }}" required>
+    <input type="text" name="phone_number" id="phone_number" class="form-control text-danger" value="{{ Auth::user()->phone_number ?? '' }}" required>
 
     <!-- Day of the Week -->
     <label for="day_of_week">Day of the Week</label>
