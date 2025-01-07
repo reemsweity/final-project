@@ -332,7 +332,10 @@
                     <div class="review-content">
                         <div class="review-header">
                             <div class="author-profile">
-                                <img src="{{ asset($review->user->profile_img ? $review->user->profile_img : 'default-profile.jpg') }}" alt="User Image" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                                <img src="{{ asset($review->user->profile_img && file_exists(public_path($review->user->profile_img)) ? $review->user->profile_img : 'default-profile.jpg') }}" 
+                                alt="User Image" 
+                                style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                           
                                 <span class="author-name">{{ $review->user->name }}</span>
                                 <div class="author-details">
                                     <span class="review-date">{{ \Carbon\Carbon::parse($review->created_at)->format('M d, Y') }}</span>

@@ -68,13 +68,7 @@
                             <a href="{{ route('admin.doctors.edit', $doctor->id) }}" class="btn btn-warning btn-sm me-1">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <form action="{{ route('admin.doctors.destroy', $doctor->id) }}" method="POST" id="delete-form-{{ $doctor->id }}" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteDoctor({{ $doctor->id }})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                         
                         </div>
                     </td>
                 </tr>

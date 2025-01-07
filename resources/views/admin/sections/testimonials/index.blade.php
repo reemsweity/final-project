@@ -60,13 +60,7 @@
                             <a href="{{ route('admin.testimonials.show', $testimonial->id) }}" class="btn btn-info btn-sm me-1">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <form action="{{ route('admin.testimonials.destroy', $testimonial->id) }}" id="delete-form-{{$testimonial->id}}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteTestimonial({{$testimonial->id}})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                           
                         </div>
                     </td>
                 </tr>

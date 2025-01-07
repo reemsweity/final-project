@@ -70,14 +70,7 @@
                                 <i class="fas fa-edit"></i>
                             </a>
                             <!-- Delete Button -->
-                            <form action="{{ route('admin.specializations.destroy', $specializations->id) }}"  id="delete-form-{{ $specializations->id }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteSpecializations({{ $specializations->id }})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-    
-                            </form>
+                            
                         </div>
                     </td>
                 </tr>

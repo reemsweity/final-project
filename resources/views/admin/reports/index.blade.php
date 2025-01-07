@@ -220,7 +220,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <h6 class="mb-0">{{ $doctor->name }}</h6>
-                                        <small class="text-muted">Reviews: {{ $doctor->reviews_count }}</small>
+                                        
                                     </div>
                                     <div>
                                         <a href="{{ route('admin.doctors.show', $doctor->id) }}">
@@ -249,7 +249,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <h6 class="mb-0">{{ $doctor->name }}</h6>
-                                        <small class="text-muted">Reviews: {{ $doctor->reviews_count }}</small>
+                                       
                                     </div>
                                     <div>
                                         <a href="{{ route('admin.doctors.show', $doctor->id) }}">

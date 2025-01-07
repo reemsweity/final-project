@@ -69,13 +69,7 @@
                                 <i class="fas fa-eye"></i>
                             </a>
                             <!-- Delete Button -->
-                            <form action="{{ route('admin.reviews.destroy', $review->id) }}" id="delete-form-{{$review->id}}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="btn btn-danger btn-sm" onclick="deleteReview({{$review->id}})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                           
                            
                         </div>
                     </td>
