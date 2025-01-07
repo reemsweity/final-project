@@ -44,7 +44,11 @@
                     <tr class="text-center align-middle">
                         <td>{{ $user->id }}</td>
                         <td>
+                            @if($user->profile_img)
                             <img src="{{ asset($user->profile_img) }}" alt="Profile Image" class="img-fluid rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+                        @else
+                           <img src="{{asset('default-profile.jpg') }}" alt="Profile Image" class="img-fluid rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+                        @endif
                         </td>
                         
                         <td>{{ Str::limit($user->name, 15) }}</td>

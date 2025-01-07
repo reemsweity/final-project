@@ -33,7 +33,7 @@
     <input type="text" name="doctor_specialty" id="doctor_specialty" value="{{ $doctor->specialization->name }}" readonly>
 
     <!-- Name --><label for="consultation_price">Consultation Price</label>
-    <input type="text" name="consultation_price" id="consultation_price" value="{{ $doctor->consultation_price }}" readonly>
+    <input type="text" name="consultation_price" id="consultation_price" value="{{ $doctor->consultation_price }} JOD" readonly>
     <label for="name">Name</label>
     <input type="text" name="name" id="name" value="{{ Auth::user()->name }}" >
 

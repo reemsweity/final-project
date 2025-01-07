@@ -56,7 +56,7 @@
 
         <div class="form-group">
             <label for="rating">Rating</label>
-            <input type="number" name="rating" id="rating" class="form-control" min="1" max="5" value="{{ old('rating') }}" required>
+            <input type="number" name="rating" id="rating" class="form-control" min="1" max="5" step="0.1" value="{{ old('rating') }}" required>
             @error('rating') <div class="text text-danger">{{ $message }}</div> @enderror
         </div>
       

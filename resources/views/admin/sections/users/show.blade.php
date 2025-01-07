@@ -22,9 +22,14 @@
         </div>
         <div class="card-body">
             <div class="row">
+                
                 <div class="col-md-4">
+                    
+                    @if(Auth::user()->profile_img )
                     <img src="{{ asset($user->profile_img) }}" alt="Profile Image" class="img-fluid rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
-
+                @else
+                   <img src="{{asset('default-profile.jpg') }}" alt="Profile Image" class="img-fluid rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                @endif
                 </div>
                 <div class="col-md-8">
                     <h5>Email: {{ $user->email }}</h5>
@@ -38,14 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer">
-           
-            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
-            </form>
-        </div>
+        
     </div>
 
     <div class="mt-3">

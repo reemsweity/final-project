@@ -37,7 +37,7 @@ class AdminDoctorController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'profile_img' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Profile image validation
             'about' => 'nullable|string',
-             'rating' => 'required|integer|min:1|max:5',
+             'rating' => 'required|numeric|min:1|max:5',
             'work_experience' => 'nullable|string',
             'year_experience' => 'nullable|integer',
             'available_time' => 'nullable|string',
@@ -58,6 +58,9 @@ class AdminDoctorController extends Controller
 
         // Create the doctor record
         Doctor::create([
+            'about'=>$validated['about'],
+            'work_experience'=>$validated['work_experience'],
+            'year_experience'=>$validated['year_experience'],
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),

@@ -10,7 +10,7 @@ class Doctor extends Authenticatable
     use HasFactory,Notifiable;
 
     protected $fillable = [
-        'about', 'work_experience', 'year_experience', 'facebook', 'twitter', 'name',
+        'about', 'work_experience', 'year_experience', 'name',
         'available_time', 'profile_img', 'specialization_id','phone','specialization',
         'email', 'password', 'rating', 'phone', 'is_admin_added', 'is_active','consultation_price'
     ];

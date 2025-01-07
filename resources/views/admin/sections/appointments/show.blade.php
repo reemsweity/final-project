@@ -38,10 +38,7 @@
                 <h5><strong>Date & Time:</strong> {{ $appointment->date_time }}</h5>
             </div>
 
-            <!-- Appointment Availability -->
-            <div class="mt-3">
-                <h5><strong>Availability:</strong> {{ $appointment->availability }}</h5>
-            </div>
+           
 
             <!-- Zoom Link -->
             <div class="mt-3">

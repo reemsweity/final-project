@@ -146,7 +146,7 @@ class DoctorAuthController extends Controller
             'available_time.*.start_time' => 'nullable|date_format:H:i',
             'available_time.*.end_time' => 'nullable|date_format:H:i',
             'available_time.*.delete' => 'nullable|in:0,1',
-            'consultation_price'=>'nullable|numeric|min:0', 
+            
         ]);
     
         // Find the doctor by ID
@@ -172,7 +172,7 @@ class DoctorAuthController extends Controller
             'year_experience' => $validated['year_experience'],
             'specialization_id' => $validated['specialization_id'],
             'phone' => $validated['phone'],
-            'consultation_price'=>$validated['consultation_price'],
+            
         ]);
     
         // Update available times
@@ -210,29 +210,6 @@ class DoctorAuthController extends Controller
     }
     
 
-
-
-
-
-    public function filterDoctorsBySpecialty($specialty_id)
-    {
-        
-        // Retrieve the specialization by ID
-        $specialties = Specialization::find($specialty_id);
-    
-        // Check if the specialization exists
-        if (!$specialties) {
-            
-            // Handle the case where the specialty does not exist
-            return redirect()->route('user.doctors')->with('error', 'Specialization not found.');
-        }
-    
-        // Retrieve doctors that belong to the selected specialization
-        $doctors = $specialties->doctors;
-    
-        // Pass the doctors and the selected specialty to the view
-        return view('pages.doctors', compact('doctors', 'specialties'));
-    }
     public function showAppointments(Request $request)
     {
         // Get the authenticated doctor

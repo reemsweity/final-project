@@ -11,16 +11,9 @@
 
         <!-- User Selection -->
         <div class="row mb-3">
-            <label for="user_id" class="col-sm-2 col-form-label">User</label>
+              <label for="user_id" class="col-sm-2 col-form-label">User ID</label>
             <div class="col-sm-10">
-                <select class="form-select" id="user_id" name="user_id" required>
-                    <option value="">Select a user</option>
-                    @foreach($users as $user)
-                        <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
-                            {{ $user->name }}
-                        </option>
-                    @endforeach
-                </select>
+                <input type="text" class="form-control" id="user_id" name="user_id" placeholder="Enter User ID" value="{{ old('user_id') }}" required>
                 @error('user_id')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror

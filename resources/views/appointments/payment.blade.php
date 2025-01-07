@@ -18,7 +18,7 @@
                 </div>
                 <div class="mb-4">
                     <h5 class="font-weight-bold">Consultation Price:</h5>
-                    <p class="text-muted">{{ $appointment->doctor->consultation_price }}</p>
+                    <p class="text-muted">{{ $appointment->doctor->consultation_price }} JOD</p>
                 </div>
 
                 <div class="mb-4">

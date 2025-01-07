@@ -24,10 +24,11 @@
             <div class="row">
                 <div class="col-md-4 text-center">
                     <!-- Profile Image -->
+                
                     @if($doctor->profile_img)
                         <img src="{{ Storage::url($doctor->profile_img) }}" alt="Profile Image" class="img-fluid rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
                     @else
-                        <p class="text-muted">No Image Available</p>
+                       <img src="{{asset('default-profile.jpg') }}" alt="Profile Image" class="img-fluid rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
                     @endif
 
                     <!-- Doctor's Personal Information Below the Image -->
